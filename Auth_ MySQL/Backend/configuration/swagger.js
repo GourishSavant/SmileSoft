@@ -9,7 +9,6 @@ const swaggerOptions = {
       title: 'User Authentication API',
       version: '1.0.0',
       description: 'User registration, login, and profile management',
-    
     },
   },
 

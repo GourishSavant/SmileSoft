@@ -27,8 +27,48 @@ export const createUser = async (role, fullName, email, password) => {
     return result.affectedRows > 0; // Returns `true` if at least one row is updated
 };
 
+// Create a new role in the database
+export const createRole = async (name, is_active, is_system, is_admin) => {
+  const [result] = await db.execute(
+    'INSERT INTO roles (name, is_active, is_system, is_admin) VALUES (?, ?, ?, ?)',
+    [name, is_active, is_system, is_admin]
+  );
+  return result.insertId; // Return the ID of the newly created role
+};
 
 
+
+export const getRoleById = async (role_id) => {
+  try {
+    const [rows] = await db.execute('SELECT * FROM roles WHERE role_id = ?', [role_id]);
+    return rows.length > 0 ? rows[0] : null; // Return the first result or null if not found
+  } catch (error) {
+    console.error('Database Error (getRoleById):', error.message);
+    throw error;
+  }
+};
+// Update Role
+export const updateRole = async (id, name, is_active, is_system, is_admin) => {
+  const [result] = await db.execute(
+      'UPDATE register SET role = ?, is_active = ?, is_system = ?, is_admin = ? WHERE id = ?',
+      [name, is_active, is_system, is_admin, id]
+  );
+  return result.affectedRows > 0;
+};
+
+// Delete Role
+export const deleteRole = async (id) => {
+  const [result] = await db.execute('DELETE FROM register WHERE id = ?', [id]);
+  return result.affectedRows > 0;
+};
+
+
+// permission Usermodel
+
+export const getPermissionsByRole = async (role_id) => {
+  const [rows] = await db.execute('SELECT * FROM role_permissions WHERE role_id = ?', [role_id]);
+  return rows;
+};
 
 
   // export const getUserById = async (id) => {

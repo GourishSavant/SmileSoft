@@ -9,7 +9,7 @@
   import authRoute from './routes/authRoutes.js'; // Correct path
   // import config from './config/config.js'; // Correct path to the config file
   import { swaggerUi, swaggerDocs } from "./configuration/swagger.js";  // Import Swagger setup
-
+  import roleRoute from './routes/roleRoute.js'
 // import express from 'express';/
 // import cors from 'cors';
 // import dotenv from 'dotenv';
@@ -17,7 +17,7 @@
 import protectedRoute from './routes/protectedRoute.js'
 import config from './config.js';
 // import { swaggerUi, swaggerDocs } from "./configuration/swagger.js";  // Import Swagger setup
-  
+// import permissionRoute from './routes/permissionRoute.js';
   dotenv.config();
   const app = express();
   
@@ -39,6 +39,9 @@ import config from './config.js';
   // Mount authentication routes
   app.use('/auth', authRoute);
   app.use('/auth/v1', protectedRoute);
+  app.use('/auth/v1',roleRoute);
+  app.use('/auth/v1/permission',roleRoute);
+  // app.use('/auth/v1', permissionRoute);
   
   // Middleware to log requests
   app.use((req, res, next) => {
