@@ -40,7 +40,7 @@ import config from './config.js';
   app.use('/auth', authRoute);
   app.use('/auth/v1', protectedRoute);
   app.use('/auth/v1',roleRoute);
-  app.use('/auth/v1/permission',roleRoute);
+
   // app.use('/auth/v1', permissionRoute);
   
   // Middleware to log requests

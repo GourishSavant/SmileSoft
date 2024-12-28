@@ -67,15 +67,6 @@ export const getRoleById = async (req, res) => {
 
         console.log(" getAll roles ")
 
-    // Validate role_id
-    // if (!role_id || isNaN(role_id)) {
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: 'Invalid or missing role_id parameter',
-    //   });
-    // }
-
-    // Fetch role from the database
     const role = await UserModel.getRoleById(role_id);
 
     if (!role) {
@@ -99,6 +90,40 @@ export const getRoleById = async (req, res) => {
     });
   }
 };
+
+
+// controllers/userController.js
+
+export const getRoleByName = async (req, res) => {
+  try {
+    const { name } = req.params; // Extract role_name from URL params
+
+    console.log("Fetching role by name:", name);
+
+    const role = await UserModel.getRoleByName(name);
+
+    if (!role) {
+      return res.status(404).json({
+        success: false,
+        message: 'Role not found',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Role retrieved successfully',
+      data: role,
+    });
+  } catch (error) {
+    console.error('Error fetching role by name:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch role',
+      error: error.message,
+    });
+  }
+};
+
 // /**
 //  * @desc Update a Role
 //  * @route PUT /api/roles/:id
