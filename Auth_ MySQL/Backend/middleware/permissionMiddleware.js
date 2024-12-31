@@ -1,21 +1,22 @@
-// // const RolePermission = require('../models/RolePermission');
-// import RolePermission from "../models/rolepermission"
-// module.exports.checkPermission = (permissionCategoryId, action) => {
-//   return (req, res, next) => {
-//     const roleId = req.user.role_id;
+import { userModel } from '../models/userModel.js';
 
-//     RolePermission.getPermissionsByRole(roleId, (err, results) => {
-//       if (err) return res.status(500).send(err);
+export const authorizePermission = (requiredPermission) => {
+  return async (req, res, next) => {
+    try {
+      const { role } = req.user;
+      const permissions = await getPermissionsByRoleModel(role);
 
-//       const permission = results.find(
-//         (p) => p.permission_category_id === permissionCategoryId
-//       );
+      const hasPermission = permissions.some(
+        (perm) => perm[requiredPermission] === 1
+      );
 
-//       if (!permission || !permission[action]) {
-//         return res.status(403).send('Access Denied');
-//       }
+      if (!hasPermission) {
+        return res.status(403).json({ error: 'Access denied. Insufficient permissions.' });
+      }
 
-//       next();
-//     });
-//   };
-// };
+      next();
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to check permissions.' });
+    }
+  };
+};

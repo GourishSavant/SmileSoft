@@ -31,3 +31,22 @@
 // });
 
 // export default router;
+import express from 'express';
+// import { authenticateUser } from '../middleware/authMiddleware.js';
+// import { authorizePermission } from '../middlewares/permissionMiddleware.js';
+import { bulkUpdatePermissionsForRoleById } from '../controllers/permissionController.js';
+
+const router = express.Router();
+
+// ✅ Get Permissions (Accessible only to authorized users)
+// router.get(
+//   '/permissions/:role_id',
+//   authenticateUser,
+//   authorizePermission('can_view'),
+//   getPermissionsByRole
+// );
+
+// router.put('/roles/:role_id/permissions', bulkUpdatePermissionsForRoleById);
+
+
+export default router;

@@ -11,7 +11,7 @@ export const createUser = async (role, fullName, email, password) => {
 
   // Function to get a user by email
   export const getUserByEmail = async (email) => {
-    const [rows] = await db.execute('SELECT * FROM register WHERE email = ?', [email]);
+    const [rows] = await db.execute('SELECT * FROM roles WHERE email = ?', [email]);
     return rows[0];
   };
   
@@ -42,22 +42,33 @@ export const getRoleById = async (role_id) => {
     throw error;
   }
 };
-// Update Role
-export const updateRole = async (id, name, is_active, is_system, is_admin) => {
+
+// Update Role by id
+export const updateRole = async (role_id, slug, name, is_active, is_system, is_admin) => {
   const [result] = await db.execute(
-      'UPDATE register SET role = ?, is_active = ?, is_system = ?, is_admin = ? WHERE id = ?',
-      [name, is_active, is_system, is_admin, id]
+    'UPDATE roles SET name = ?, slug = ?, is_active = ?, is_system = ?, is_admin = ? WHERE role_id = ?',
+    [name, slug, is_active, is_system, is_admin, role_id]
   );
   return result.affectedRows > 0;
 };
 
-// Delete Role
-export const deleteRole = async (id) => {
-  const [result] = await db.execute('DELETE FROM register WHERE id = ?', [id]);
+// Delete Role by id
+// Delete Role by role_id
+export const deleteRoleById = async (role_id) => {
+  const [result] = await db.execute('DELETE FROM roles WHERE role_id = ?', [role_id]);
   return result.affectedRows > 0;
 };
 
 
+export const getAllRoles = async () => {
+  try {
+    const [rows] = await db.execute('SELECT * FROM roles');
+    return rows.length > 0 ? rows : null; // Return the first result or null if not found
+  } catch (error) {
+    console.error('Database Error (getRoleById):', error.message);
+    throw error;
+  }
+};
 // permission Usermodel
 
 // export const getPermissionsByRoleModel = async (role_id) => {
@@ -83,7 +94,7 @@ export const deleteRole = async (id) => {
 export const getPermissionsByRoleModel = async (role_id) => {
   try {
     const [rows] = await db.execute(
-      'SELECT * FROM roles_permissions WHERE role_id = ?', 
+      'SELECT * FROM roles_permissions WHERE role_id = 1', 
       [role_id]
     );
     console.log('Number of rows:', rows.length); 
@@ -93,6 +104,17 @@ export const getPermissionsByRoleModel = async (role_id) => {
     throw new Error('Database query failed');
   }
 };
+export const getAllPermissionsModel = async () => {
+  try {
+    const [rows] = await db.execute('SELECT * FROM roles_permissions');
+    console.log('Number of rows:', rows.length);
+    return rows;
+  } catch (error) {
+    console.error('Error in database query:', error);
+    throw new Error('Database query failed');
+  }
+};
+
 
 // Bulk Update Permissions for a Role
 // export const bulkUpdatePermissionsForRole = async (role_id, permissions) => {
@@ -136,6 +158,120 @@ export const getPermissionsByRoleModel = async (role_id) => {
 
 // models/userModel.js
 
+// export const bulkUpdatePermissionsForRole = async (role_id, permissions) => {
+//   try {
+//     if (!permissions || permissions.length === 0) {
+//       throw new Error('No permissions provided for update');
+//     }
+
+//     // Build dynamic SQL query
+//     const updates = ['can_view', 'can_add', 'can_edit', 'can_delete'].map(column => `
+//       ${column} = CASE permission_category_id
+//         ${permissions.map(() => 'WHEN ? THEN ?').join(' ')}
+//         ELSE ${column}
+//       END
+//     `).join(', ');
+
+//     const query = `
+//       UPDATE roles_permissions
+//       SET ${updates}
+//       WHERE role_id = ? AND permission_category_id IN (${permissions.map(() => '?').join(', ')})
+//     `;
+
+//     // Prepare the values array
+//     const values = [];
+//     ['can_view', 'can_add', 'can_edit', 'can_delete'].forEach(column => {
+//       permissions.forEach(permission => {
+//         values.push(permission.permission_category_id, permission[column]);
+//       });
+//     });
+
+//     // Add role_id for WHERE clause
+//     values.push(role_id);
+
+//     // Add permission_category_ids for IN clause
+//     permissions.forEach(permission => {
+//       values.push(permission.permission_category_id);
+//     });
+
+//     console.log('SQL Query:', query);
+//     console.log('Values:', values);
+
+//     const [result] = await db.execute(query, values);
+
+//     console.log('Number of affected rows:', result.affectedRows);
+//     return result.affectedRows;
+//   } catch (error) {
+//     console.error('Error in bulk updating permissions:', error.message);
+//     throw new Error('Failed to bulk update role permissions');
+//   }
+// };
+
+
+// models/userModel.js
+
+// export const getRoleByName = async (name) => {
+//   try {
+//     const [rows] = await db.execute(
+//       'SELECT * FROM roles WHERE name = ?',
+//       [name]
+//     );
+
+//     return rows.length > 0 ? rows[0] : null; // Return the first matching role or null
+//   } catch (error) {
+//     console.error('Error fetching role by name:', error.message);
+//     throw new Error('Failed to fetch role by name');
+//   }
+// };
+
+
+
+  // export const getUserById = async (id) => {
+  //   try {
+  //     const user = await db.query('SELECT * FROM register WHERE registerId = ?', [id]); // Use parameterized queries to avoid SQL injection
+  //     if (user.length === 0) {
+  //       throw new Error('User not found');
+  //     }
+  //     return user[0]; // Assuming you're using an array of users from the query result
+  //   } catch (error) {
+  //     throw new Error('Error fetching user from database: ' + error.message);
+  //   }
+  // };
+
+  // Fetch role_id by role name
+export const getRoleIdByName = async (name) => {
+  try {
+    const [rows] = await db.execute('SELECT role_id FROM roles WHERE name = ?', [name]);
+    return rows.length > 0 ? rows[0].role_id : null;
+  } catch (error) {
+    console.error('Error fetching role_id by name:', error.message);
+    throw new Error('Failed to fetch role_id by name');
+  }
+};
+
+// Fetch permission_category_id by category name
+export const getPermissionCategoryIdByName = async (name) => {
+  try {
+    const [rows] = await db.execute('SELECT permission_category_id FROM permission_category WHERE name = ?', [name]);
+    return rows.length > 0 ? rows[0].permission_category_id : null;
+  } catch (error) {
+    console.error('Error fetching permission_category_id by name:', error.message);
+    throw new Error('Failed to fetch permission_category_id by name');
+  }
+};
+
+export const checkRoleExistsById = async (role_id) => {
+  try {
+    const [rows] = await db.execute('SELECT 1 FROM roles WHERE role_id = ?', [role_id]);
+    return rows.length > 0;
+  } catch (error) {
+    console.error('Error checking role by ID:', error.message);
+    throw new Error('Failed to check role by ID');
+  }
+};
+
+
+// Bulk update permissions by role_id and permission_category_id
 export const bulkUpdatePermissionsForRole = async (role_id, permissions) => {
   try {
     if (!permissions || permissions.length === 0) {
@@ -156,7 +292,7 @@ export const bulkUpdatePermissionsForRole = async (role_id, permissions) => {
       WHERE role_id = ? AND permission_category_id IN (${permissions.map(() => '?').join(', ')})
     `;
 
-    // Prepare the values array
+    // Prepare values array
     const values = [];
     ['can_view', 'can_add', 'can_edit', 'can_delete'].forEach(column => {
       permissions.forEach(permission => {
@@ -164,10 +300,10 @@ export const bulkUpdatePermissionsForRole = async (role_id, permissions) => {
       });
     });
 
-    // Add role_id for WHERE clause
+    // Add role_id
     values.push(role_id);
 
-    // Add permission_category_ids for IN clause
+    // Add permission_category_ids
     permissions.forEach(permission => {
       values.push(permission.permission_category_id);
     });
@@ -186,32 +322,22 @@ export const bulkUpdatePermissionsForRole = async (role_id, permissions) => {
 };
 
 
-// models/userModel.js
+// export class StaffModel {
+//   static async getStaffByEmail(email) {
+//     try {
+//       const [rows] = await db.execute(
+//         'SELECT * FROM staff WHERE email = ? AND is_active = 1',
+//         [email]
+//       );
+//       return rows.length > 0 ? rows[0] : null;
+//     } catch (error) {
+//       console.error('Database Error:', error.message);
+//       throw error;
+//     }
+//   }
+// }
+export const getStaffByEmail = async (email) => {
+  const [rows] = await db.execute('SELECT * FROM staff WHERE email = ? AND is_active = 1', [email]);
 
-export const getRoleByName = async (name) => {
-  try {
-    const [rows] = await db.execute(
-      'SELECT * FROM roles WHERE name = ?',
-      [name]
-    );
-
-    return rows.length > 0 ? rows[0] : null; // Return the first matching role or null
-  } catch (error) {
-    console.error('Error fetching role by name:', error.message);
-    throw new Error('Failed to fetch role by name');
-  }
+  return rows[0];
 };
-
-
-
-  // export const getUserById = async (id) => {
-  //   try {
-  //     const user = await db.query('SELECT * FROM register WHERE registerId = ?', [id]); // Use parameterized queries to avoid SQL injection
-  //     if (user.length === 0) {
-  //       throw new Error('User not found');
-  //     }
-  //     return user[0]; // Assuming you're using an array of users from the query result
-  //   } catch (error) {
-  //     throw new Error('Error fetching user from database: ' + error.message);
-  //   }
-  // };

@@ -279,3 +279,63 @@ export const getUser = async (req, res) => {
 };
 
 // -------------------------------------------
+export const staffLogin = async (req, res) => {
+  const { email, password } = req.body;
+
+  // Validate Input
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email and password are required' });
+  }
+
+  try {
+    // Fetch staff details by email
+    const staff = await UserModel.getStaffByEmail(email);
+
+    if (!staff) {
+      return res.status(404).json({ error: 'Staff not found' });
+    }
+
+    // Validate password
+    // const isPasswordValid = await bcrypt.compare(password, staff.password);
+    // if (!isPasswordValid) {
+    //   return res.status(401).json({ error: 'Invalid password' });
+    // }
+
+    // Generate Access and Refresh Tokens
+    const accessToken = jwt.sign(
+      { staff_id: staff.staff_id, role_id: staff.role_id },
+      jwtSecret,
+      { expiresIn: '15m' }
+    );
+
+    const refreshToken = jwt.sign(
+      { staff_id: staff.staff_id, role_id: staff.role_id },
+      jwtSecret,
+      { expiresIn: '7d' }
+    );
+
+    // Set Refresh Token in Cookie
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    // Return response
+    res.status(200).json({
+      message: 'Login successful',
+      accessToken,
+      staff: {
+        staff_id: staff.staff_id,
+        email: staff.email,
+        role_id: staff.role_id,
+        first_name: staff.first_name,
+        last_name: staff.last_name,
+      },
+    });
+  } catch (error) {
+    console.error('Login Error:', error.message);
+    res.status(500).json({ error: 'Login failed', details: error.message });
+  }
+};

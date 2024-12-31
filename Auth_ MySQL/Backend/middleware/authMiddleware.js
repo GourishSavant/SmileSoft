@@ -1,6 +1,7 @@
 
 import jwt from 'jsonwebtoken';
 import config from '../config.js';
+import { getUserByEmail } from '../models/userModel.js';
 
 export const authenticateToken = (req, res, next) => {
   let accesstoken = config.jwtSecret;
@@ -33,4 +34,26 @@ export const verifyToken = (req, res, next) => {
     req.user = decoded;
     next();
   });
+};
+
+
+
+export const authenticateUser = async (req, res, next) => {
+  const token = req.header('Authorization');
+  if (!token) {
+    return res.status(401).json({ error: 'Access denied. No token provided.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    const user = await getUserByEmail(decoded.email);
+    if (!user) {
+      return res.status(401).json({ error: 'User not found.' });
+    }
+    req.user.role = user.role;
+    next();
+  } catch (error) {
+    res.status(400).json({ error: 'Invalid token.' });
+  }
 };

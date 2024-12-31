@@ -1,4 +1,4 @@
-
+// import { authenticateToken, authorizeRoles } from '../middleware/authMiddleware.js';
 import * as UserModel from '../models/userModel.js';
 // // controllers/roleController.js
 // const Role = require('../models/roleModel');
@@ -6,33 +6,63 @@ import * as UserModel from '../models/userModel.js';
 // Create a new Role
 
 // Create a new Role
+// export const createRole = async (req, res) => {
+//     try {
+//         const { name, is_active, is_system, is_admin } = req.body;
+
+//         // // Validate required fields
+//         // if (!role || is_active === undefined || is_system === undefined || is_admin === undefined) {
+//         //     return res.status(400).json({ success: false, message: 'All fields are required' });
+//         // }
+
+//         // Create role in the database
+//         const role_id = await UserModel.createRole(name, is_active, is_system, is_admin);
+
+//         res.status(201).json({
+//             success: true,
+//             message: 'Role created successfully',
+//             role_id
+//         });
+//     } catch (error) {
+//         console.error('Role Creation Error:', error.message);
+//         res.status(500).json({
+//             success: false,
+//             message: 'Failed to create role',
+//             error: error.message
+//         });
+//     }
+
+// }
+
+
 export const createRole = async (req, res) => {
-    try {
-        const { name, is_active, is_system, is_admin } = req.body;
-
-        // // Validate required fields
-        // if (!role || is_active === undefined || is_system === undefined || is_admin === undefined) {
-        //     return res.status(400).json({ success: false, message: 'All fields are required' });
-        // }
-
-        // Create role in the database
-        const role_id = await UserModel.createRole(name, is_active, is_system, is_admin);
-
-        res.status(201).json({
-            success: true,
-            message: 'Role created successfully',
-            role_id
-        });
-    } catch (error) {
-        console.error('Role Creation Error:', error.message);
-        res.status(500).json({
-            success: false,
-            message: 'Failed to create role',
-            error: error.message
-        });
+  try {
+    const { error, value } = roleSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ success: false, message: error.details[0].message });
     }
 
-}
+    const { name, is_active, is_system, is_admin } = value;
+
+    if (['super_admin'].includes(name.toLowerCase())) {
+      return res.status(403).json({ error: 'Cannot create a protected role' });
+    }
+
+    const role_id = await UserModel.createRole(name, is_active, is_system, is_admin);
+
+    res.status(201).json({
+      success: true,
+      message: 'Role created successfully',
+      role_id,
+    });
+  } catch (error) {
+    console.error('Role Creation Error:', error);
+    res.status(500).json({ success: false, message: 'Failed to create role' });
+  }
+};
+
+
+
 
 export const getRoles = async (req, res) => {
     try {
@@ -54,12 +84,6 @@ export const getRoles = async (req, res) => {
     }
 };
 
-// /**
-//  * @desc Get a Single Role by ID
-//  * @route GET /api/roles/:id
-//  */import { getRoleById } from '../models/RoleModel'; // Ensure the path is correct
-
-// API Controller to fetch a single role by ID
 
 export const getRoleById = async (req, res) => {
   try {
@@ -91,8 +115,86 @@ export const getRoleById = async (req, res) => {
   }
 };
 
+export const updateRole = async (req, res) => {
+  try {
+    const { role_id } = req.params; // Extract role_id from URL params
+    const { slug, name, is_active = 1, is_system = 1, is_admin = 0 } = req.body;
+
+    if (!role_id) {
+      return res.status(400).json({ error: 'Role ID is required' });
+    }
+
+    if (!name) {
+      return res.status(400).json({ error: 'Name is required' });
+    }
+
+    let updatedIsAdmin = is_admin;
+    if (name.toLowerCase() === 'admin') {
+      updatedIsAdmin = 1;
+    }
+
+    if (name.toLowerCase() === 'super admin') {
+      return res.status(403).json({ error: 'Edit of Super Admin role is not allowed' });
+    }
+
+    const updated = await UserModel.updateRole(role_id, slug, name, is_active, is_system, updatedIsAdmin);
+
+    if (updated) {
+      return res.status(200).json({ success: true, message: 'Role updated successfully' });
+    } else {
+      return res.status(404).json({ error: 'Role not found or not updated' });
+    }
+  } catch (err) {
+    console.error('Role Update Error:', err);
+    res.status(500).json({ error: 'Role updation failed', details: err.message });
+  }
+};
+// Delete Role by role_id
+export const deleteRole = async (req, res) => {
+  try {
+    const { role_id } = req.params; // Extract role_id from URL params
+
+    if (!role_id) {
+      return res.status(400).json({ error: 'Role ID is required' });
+    }
+
+    // Prevent deletion of critical roles (you might need a separate query to check role_id for these)
+    const protectedRoleIds = [1, 2, 3, 4, 5, 6]; // Example role IDs for 'admin', 'super admin', etc.
+
+    if (protectedRoleIds.includes(Number(role_id))) {
+      return res.status(403).json({ error: 'Deletion of protected roles is not allowed' });
+    }
+
+    const deleted = await UserModel.deleteRoleById(role_id);
+
+    if (deleted) {
+      return res.status(200).json({ success: true, message: `Role with ID '${role_id}' deleted successfully` });
+    } else {
+      return res.status(404).json({ error: `Role with ID '${role_id}' not found or already deleted` });
+    }
+  } catch (err) {
+    console.error('Role Deletion Error:', err);
+    res.status(500).json({ error: 'Role deletion failed', details: err.message });
+  }
+};
 
 // controllers/userController.js
+
+export const getAllRoles = async (req, res) => {
+  try {
+      const role = await UserModel.getAllRoles();
+      if (role) {
+          return res.json(role); // Return user data as JSON response
+      } else {
+          return res.status(404).json({ error: 'Roles not found' });
+      }
+  } catch (error) {
+      console.error('Error fetching roles:', error);
+      res.status(500).json({error: 'Error fetching roles', details: error.message});
+  }
+}
+
+
 
 export const getRoleByName = async (req, res) => {
   try {
@@ -123,102 +225,3 @@ export const getRoleByName = async (req, res) => {
     });
   }
 };
-
-// /**
-//  * @desc Update a Role
-//  * @route PUT /api/roles/:id
-//  */
-// export const updateRole = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const { name, is_active, is_system, is_admin } = req.body;
-
-//         const updatedRole = await UserModel.updateRole(id, name, is_active, is_system, is_admin);
-
-//         if (!updatedRole) {
-//             return res.status(404).json({ success: false, message: 'Role not found or not updated' });
-//         }
-
-//         res.status(200).json({
-//             success: true,
-//             message: 'Role updated successfully',
-//             data: updatedRole
-//         });
-//     } catch (error) {
-//         console.error('Error updating role:', error.message);
-//         res.status(500).json({
-//             success: false,
-//             message: 'Failed to update role',
-//             error: error.message
-//         });
-//     }
-// };
-
-// /**
-//  * @desc Delete a Role
-//  * @route DELETE /api/roles/:id
-//  */
-// export const deleteRole = async (req, res) => {
-//     try {
-//         const { role_id } = req.params;
-
-//         const deletedRole = await UserModel.deleteRole(role_id);
-
-//         if (!deletedRole) {
-//             return res.status(404).json({ success: false, message: 'Role not found or already deleted' });
-//         }
-
-//         res.status(200).json({
-//             success: true,
-//             message: 'Role deleted successfully'
-//         });
-//     } catch (error) {
-//         console.error('Error deleting role:', error.message);
-//         res.status(500).json({
-//             success: false,
-//             message: 'Failed to delete role',
-//             error: error.message
-//         });
-//     }
-// };
-
-
-
-// import Role from '../models/role.js'
-// export const getAllRoles = async (req, res) => {
-//   try {
-//     const roles = await Role.findAll();
-//     res.json(roles);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-// export const createRole = async (req, res) => {
-//   try {
-//     const role = await Role.create(req.body);
-//     res.status(201).json(role);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-// export const updateRole = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     await Role.update(req.body, { where: { role_id: id } });
-//     res.json({ message: 'Role updated successfully' });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-// export const deleteRole = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     await Role.destroy({ where: { role_id: id } });
-//     res.json({ message: 'Role deleted successfully' });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };

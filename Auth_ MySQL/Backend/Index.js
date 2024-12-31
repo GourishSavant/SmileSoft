@@ -10,12 +10,15 @@
   // import config from './config/config.js'; // Correct path to the config file
   import { swaggerUi, swaggerDocs } from "./configuration/swagger.js";  // Import Swagger setup
   import roleRoute from './routes/roleRoute.js'
+  import staffRoute from './routes/staffRoute.js'
+  import permissionRoute from './routes/permissionRoute.js'
 // import express from 'express';/
 // import cors from 'cors';
 // import dotenv from 'dotenv';
 // import authRoute from './routes/authRoutes.js'
 import protectedRoute from './routes/protectedRoute.js'
 import config from './config.js';
+// import { permission } from 'process';
 // import { swaggerUi, swaggerDocs } from "./configuration/swagger.js";  // Import Swagger setup
 // import permissionRoute from './routes/permissionRoute.js';
   dotenv.config();
@@ -40,7 +43,9 @@ import config from './config.js';
   app.use('/auth', authRoute);
   app.use('/auth/v1', protectedRoute);
   app.use('/auth/v1',roleRoute);
-
+  app.use('/auth/v1',roleRoute);
+  // app.use('/auth/v1',permissionRoute);
+  app.use('/auth/v1',staffRoute);
   // app.use('/auth/v1', permissionRoute);
   
   // Middleware to log requests
