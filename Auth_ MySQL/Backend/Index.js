@@ -12,6 +12,7 @@
   import roleRoute from './routes/roleRoute.js'
   import staffRoute from './routes/staffRoute.js'
   import permissionRoute from './routes/permissionRoute.js'
+  import permissionCheck from './routes/permissionCheck.js'
 // import express from 'express';/
 // import cors from 'cors';
 // import dotenv from 'dotenv';
@@ -41,11 +42,12 @@ import config from './config.js';
   
   // Mount authentication routes
   app.use('/auth', authRoute);
-  app.use('/auth/v1', protectedRoute);
-  app.use('/auth/v1',roleRoute);
-  app.use('/auth/v1',roleRoute);
-  // app.use('/auth/v1',permissionRoute);
-  app.use('/auth/v1',staffRoute);
+  app.use('/auth', protectedRoute);
+  app.use('/auth',roleRoute);
+  app.use('/auth',roleRoute);
+  app.use('/auth/perm',permissionRoute);
+  app.use('/auth',staffRoute);
+  app.use('/auth/check',permissionCheck);
   // app.use('/auth/v1', permissionRoute);
   
   // Middleware to log requests

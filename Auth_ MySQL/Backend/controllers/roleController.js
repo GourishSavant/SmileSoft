@@ -44,9 +44,9 @@ export const createRole = async (req, res) => {
 
     const { name, is_active, is_system, is_admin } = value;
 
-    if (['super_admin'].includes(name.toLowerCase())) {
-      return res.status(403).json({ error: 'Cannot create a protected role' });
-    }
+    // if (['super_admin'].includes(name.toLowerCase())) {
+    //   return res.status(403).json({ error: 'Cannot create a protected role' });
+    // }
 
     const role_id = await UserModel.createRole(name, is_active, is_system, is_admin);
 
@@ -60,8 +60,6 @@ export const createRole = async (req, res) => {
     res.status(500).json({ success: false, message: 'Failed to create role' });
   }
 };
-
-
 
 
 export const getRoles = async (req, res) => {
@@ -181,8 +179,11 @@ export const deleteRole = async (req, res) => {
 // controllers/userController.js
 
 export const getAllRoles = async (req, res) => {
+  console.log("------------------")
   try {
       const role = await UserModel.getAllRoles();
+      console.log(role)
+
       if (role) {
           return res.json(role); // Return user data as JSON response
       } else {

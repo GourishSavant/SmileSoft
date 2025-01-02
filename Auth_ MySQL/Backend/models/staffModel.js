@@ -1,7 +1,5 @@
 import config from '../config.js';
-
 const db = config.db;
-
 // Create designation in the database
 export const createDesignation = async (designation, is_active) => {
     const [result] = await db.execute('INSERT INTO staff_designation (designation, is_active) VALUES (?, ?)', [designation, is_active]);
@@ -115,6 +113,10 @@ export const createDesignation = async (designation, is_active) => {
       throw error;
     }
   };
+  export const getStaffByEmail = async (email) => {
+    const [rows] = await db.execute('SELECT * FROM staff WHERE email = ? AND is_active = 1', [email]);
+    return rows[0];
+  };
   //fetching all staff
   export const getAllStaff = async () => {
     try {
@@ -176,3 +178,5 @@ export const createDesignation = async (designation, is_active) => {
     const [result] = await db.execute('UPDATE staff SET password = ? WHERE staff_emp_id = ?', [password, staff_emp_id]);
     return result.affectedRows > 0;
   };
+
+  

@@ -1,11 +1,11 @@
 
 import express from 'express';
-import {createStaff,getAllStaff,getStaffByFilter,getStaffByRole,updateStaff,deleteStaffHandler,addStaffPassword} from '../controllers/staffController.js';
+import {createStaff,getAllStaff,getStaffByFilter,getStaffByRole,updateStaff,deleteStaffHandler,addStaffPassword,staffLogin} from '../controllers/staffController.js';
 
 const router = express.Router();
 /**
  * @swagger
- * /staff/v1/create:
+ * /staff/create:
  *   post:
  *     tags:
  *       - Staff API
@@ -104,7 +104,7 @@ router.post('/createStaff', createStaff);
 
 /**
  * @swagger
- * /staff/v1/getAll:
+ * /staff/getAll:
  *   get:
  *     tags:
  *       - Staff API
@@ -170,7 +170,7 @@ router.get('/getAllStaff', getAllStaff);
 
 /**
  * @swagger
- * /staff/v1/getByFilter:
+ * /staff/getByFilter:
  *   get:
  *     tags:
  *       - Staff API
@@ -262,7 +262,7 @@ router.get('/getStaffByFilter', getStaffByFilter);
 
 /**
  * @swagger
- * /staff/v1/getByRole:
+ * /staff/getByRole:
  *   get:
  *     tags:
  *       - Staff API
@@ -310,7 +310,7 @@ router.get('/getStaffByFilter', getStaffByFilter);
 router.get('/getStaffByRole', getStaffByRole);
 /**
  * @swagger
- * /staff/v1/create:
+ * /staff/create:
  *   post:
  *     tags:
  *       - Staff API
@@ -409,7 +409,7 @@ router.put('/updateStaff/:staff_emp_id', updateStaff);
 
 /**
  * @swagger
- * /staff/v1/delete:
+ * /staff/delete:
  *   delete:
  *     tags:
  *       - Staff API
@@ -436,7 +436,7 @@ router.put('/updateStaff/:staff_emp_id', updateStaff);
 router.delete('/deleteStaff', deleteStaffHandler);
 /**
  * @swagger
- * /staff/v1/addStaffPassword/{staff_emp_id}:
+ * /staff/addStaffPassword/{staff_emp_id}:
  *   put:
  *     tags:
  *       - Staff API
@@ -474,5 +474,77 @@ router.delete('/deleteStaff', deleteStaffHandler);
  */
 
 router.put('/addStaffPassword/:staff_emp_id', addStaffPassword);
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     tags:
+ *       - staff login
+ *     summary:  Login
+ *     description: Authenticate staff members using their credentials to obtain an access token.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: Staff member's username or email.
+ *                 example: "john.doe@example.com"
+ *               password:
+ *                 type: string
+ *                 description: Staff member's password.
+ *                 example: "SecurePassword123"
+ *     responses:
+ *       200:
+ *         description: Login successful, returns access token.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 accessToken:
+ *                   type: string
+ *                   description: JWT access token for authenticated access.
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *                 expiresIn:
+ *                   type: integer
+ *                   description: Token expiration time in seconds.
+ *                   example: 3600
+ *       400:
+ *         description: Bad Request - Invalid login credentials.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid username or password."
+ *       401:
+ *         description: Unauthorized - Authentication failed.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Authentication failed. Please try again."
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "An error occurred while processing the login request."
+ */
+
+router.get('/login', staffLogin);
 
 export default router;

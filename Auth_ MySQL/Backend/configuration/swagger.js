@@ -12,7 +12,7 @@ const swaggerOptions = {
     },
   },
 
-  apis: ['./routes/authRoutes.js','./routes/protectedRoute.js','./routes/roleRoute.js','./routes/permissionRoute.js','./routes/staffRoute.js'],  
+  apis: ['./routes/authRoutes.js','./routes/protectedRoute.js','./routes/roleRoute.js','./routes/permissionRoute.js','./routes/staffRoute.js','./routes/permissionCheck.js'],  
 };
 
 // Generate Swagger docs

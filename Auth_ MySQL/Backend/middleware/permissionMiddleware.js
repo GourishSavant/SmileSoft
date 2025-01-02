@@ -1,4 +1,4 @@
-import { userModel } from '../models/userModel.js';
+import { getPermissionsByRoleModel } from '../models/userModel.js';
 
 export const authorizePermission = (requiredPermission) => {
   return async (req, res, next) => {

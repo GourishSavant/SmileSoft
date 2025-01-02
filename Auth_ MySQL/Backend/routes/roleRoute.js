@@ -6,7 +6,7 @@ import {getRoleByName} from '../controllers/roleController.js';
 import {updateRole} from '../controllers/roleController.js';
 import {deleteRole} from '../controllers/roleController.js';
 import {getPermissionsByRole} from '../controllers/permissionController.js';
-import {staffLogin} from '../controllers/authController.js';
+
 // import {updatePermissionsForRole} from '../controllers/permissionController.js';
 // import {assignPermission} from '../controllers/permissionController.js'
 // import {bulkUpdatePermissionsForRoleByNames} from '../controllers/permissionController.js';
@@ -122,7 +122,8 @@ const router = express.Router();
 // router.post('/roles', authenticateToken, authorizeRoles('admin', 'super_admin'), createRole);
 
 
-router.post('/roles', createRole);        // Create Role
+router.post('/roles',authenticate,  // First, authenticate the user
+    authorize(['1', '2']), createRole);        // Create Role
 // router.get('/roles', getRoles);  
 /**
  * @swagger
@@ -545,77 +546,77 @@ router.delete('/roles/:role_id', deleteRole);
 //  */
 
 router.get('/roles/name/:name', getRoleByName);
-/**
- * @swagger
- * /roles/v1/permissions/{role_id}:
- *   get:
- *     tags:
- *       - Role_Permission API
- *     summary: Retrieve permissions for a specific role
- *     description: This endpoint allows you to fetch the permissions assigned to a specific role by its unique role ID.
- *     parameters:
- *       - name: role_id
- *         in: path
- *         required: true
- *         description: The unique identifier of the role to retrieve permissions for
- *         schema:
- *           type: integer
- *           example: 1
- *     responses:
- *       200:
- *         description: Successfully retrieved the permissions for the role
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   permission_id:
- *                     type: integer
- *                     description: The unique identifier of the permission
- *                     example: 101
- *                   permission_name:
- *                     type: string
- *                     description: The name of the permission
- *                     example: "read_only"
- *                   description:
- *                     type: string
- *                     description: A brief description of the permission
- *                     example: "Allows read-only access"
- *       404:
- *         description: Role not found or no permissions assigned
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Permissions not found for the role"
- *       500:
- *         description: Internal Server Error - Unable to retrieve permissions
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Failed to fetch permissions"
- *                 details:
- *                   type: string
- *                   example: "Database connection failed"
- *     security:
- *       - BearerAuth: []
- *
- * components:
- *   securitySchemes:
- *     BearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- */
+// /**
+//  * @swagger
+//  * /roles/permissions/{role_id}:
+//  *   get:
+//  *     tags:
+//  *       - Role_Permission API
+//  *     summary: Retrieve permissions for a specific role
+//  *     description: This endpoint allows you to fetch the permissions assigned to a specific role by its unique role ID.
+//  *     parameters:
+//  *       - name: role_id
+//  *         in: path
+//  *         required: true
+//  *         description: The unique identifier of the role to retrieve permissions for
+//  *         schema:
+//  *           type: integer
+//  *           example: 1
+//  *     responses:
+//  *       200:
+//  *         description: Successfully retrieved the permissions for the role
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               type: array
+//  *               items:
+//  *                 type: object
+//  *                 properties:
+//  *                   permission_id:
+//  *                     type: integer
+//  *                     description: The unique identifier of the permission
+//  *                     example: 101
+//  *                   permission_name:
+//  *                     type: string
+//  *                     description: The name of the permission
+//  *                     example: "read_only"
+//  *                   description:
+//  *                     type: string
+//  *                     description: A brief description of the permission
+//  *                     example: "Allows read-only access"
+//  *       404:
+//  *         description: Role not found or no permissions assigned
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               type: object
+//  *               properties:
+//  *                 error:
+//  *                   type: string
+//  *                   example: "Permissions not found for the role"
+//  *       500:
+//  *         description: Internal Server Error - Unable to retrieve permissions
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               type: object
+//  *               properties:
+//  *                 error:
+//  *                   type: string
+//  *                   example: "Failed to fetch permissions"
+//  *                 details:
+//  *                   type: string
+//  *                   example: "Database connection failed"
+//  *     security:
+//  *       - BearerAuth: []
+//  *
+//  * components:
+//  *   securitySchemes:
+//  *     BearerAuth:
+//  *       type: http
+//  *       scheme: bearer
+//  *       bearerFormat: JWT
+//  */
 
 
 router.get('/permissions/:role_id',   authenticate, 
@@ -861,76 +862,6 @@ router.put(
     bulkUpdatePermissionsForRoleById
   );
 // router.put('/roles/permissions/:role_id', bulkUpdatePermissionsForRoleById);
-/**
- * @swagger
- * /auth/v1/login:
- *   post:
- *     tags:
- *       - Login Authentication API
- *     summary: Staff Login
- *     description: Authenticate staff members using their credentials to obtain an access token.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *                 description: Staff member's username or email.
- *                 example: "john.doe@example.com"
- *               password:
- *                 type: string
- *                 description: Staff member's password.
- *                 example: "SecurePassword123"
- *     responses:
- *       200:
- *         description: Login successful, returns access token.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 accessToken:
- *                   type: string
- *                   description: JWT access token for authenticated access.
- *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
- *                 expiresIn:
- *                   type: integer
- *                   description: Token expiration time in seconds.
- *                   example: 3600
- *       400:
- *         description: Bad Request - Invalid login credentials.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Invalid username or password."
- *       401:
- *         description: Unauthorized - Authentication failed.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Authentication failed. Please try again."
- *       500:
- *         description: Internal Server Error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "An error occurred while processing the login request."
- */
 
-router.post('/login', staffLogin);
+
 export default router;

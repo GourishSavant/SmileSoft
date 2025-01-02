@@ -11,7 +11,9 @@ export const createUser = async (role, fullName, email, password) => {
 
   // Function to get a user by email
   export const getUserByEmail = async (email) => {
-    const [rows] = await db.execute('SELECT * FROM roles WHERE email = ?', [email]);
+    console.log(" this is user model ")
+    const [rows] = await db.execute('SELECT * FROM staff WHERE email = ?', [email]);
+    console.log("db ")
     return rows[0];
   };
   
@@ -61,6 +63,16 @@ export const deleteRoleById = async (role_id) => {
 
 
 export const getAllRoles = async () => {
+  try {
+    const [rows] = await db.execute('SELECT * FROM roles');
+    return rows.length > 0 ? rows : null; // Return the first result or null if not found
+  } catch (error) {
+    console.error('Database Error (getRoleById):', error.message);
+    throw error;
+  }
+};
+
+export const craeteStudent = async () => {
   try {
     const [rows] = await db.execute('SELECT * FROM roles');
     return rows.length > 0 ? rows : null; // Return the first result or null if not found
@@ -336,8 +348,158 @@ export const bulkUpdatePermissionsForRole = async (role_id, permissions) => {
 //     }
 //   }
 // }
+
+export const getPermissions = async () => {
+  console.log("entered in SQL ")
+  const query = `
+  SELECT * FROM roles_permissions`;
+  //  SELECT 
+  //   *
+  //   FROM roles r
+  //   right JOIN roles_permissions rp ON r.role_id = rp.role_id
+  //   right JOIN permission_category pc ON pc.permission_category_id = rp.permission_category_id
+  //   ORDER BY r.role_id;
+  
+
+  const [results] = await db.execute(query);
+  return results;
+};
+export const getPermissionById = async (role_id) => {
+  console.log("entered in SQL ")
+  const query = `
+  SELECT * FROM roles_permissions where role_id=?`;
+  //  SELECT 
+  //   *
+  //   FROM roles r
+  //   right JOIN roles_permissions rp ON r.role_id = rp.role_id
+  //   right JOIN permission_category pc ON pc.permission_category_id = rp.permission_category_id
+  //   ORDER BY r.role_id;
+  
+
+  const [results] = await db.execute(query,[role_id]);
+  return results;
+};
+
 export const getStaffByEmail = async (email) => {
   const [rows] = await db.execute('SELECT * FROM staff WHERE email = ? AND is_active = 1', [email]);
 
   return rows[0];
 };
+
+export const checkCreatePermissionForRole = async (role_id, permission_category_id) => {
+
+    const query = `
+      SELECT * FROM roles_permissions 
+      WHERE role_id = ? AND permission_category_id = ? AND can_add = 1
+    `;
+    const [result] = await db.execute(query, [role_id, permission_category_id]);
+    return result.length > 0;
+  };
+
+  export const checkEditPermissionForRole = async (role_id, permission_category_id) => {
+
+    const query = `
+      SELECT * FROM roles_permissions 
+      WHERE role_id = ? AND permission_category_id = ? AND can_edit = 1
+    `;
+    const [result] = await db.execute(query, [role_id, permission_category_id]);
+    return result.length > 0;
+  };
+
+  export const checkDeletePermissionForRole = async (role_id, permission_category_id) => {
+
+    const query = `
+      SELECT * FROM roles_permissions 
+      WHERE role_id = ? AND permission_category_id = ? AND can_delete = 1
+    `;
+    const [result] = await db.execute(query, [role_id, permission_category_id]);
+    return result.length > 0;
+  };
+
+
+  export const admission_enquiry = async (
+    feature) => {
+    const query = `
+      INSERT INTO enquiry 
+      (name, contact, address, reference, date, description, follow_up_date, note, source, email, assigned, class_id, no_of_child, status, created_by)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+  
+    try {
+      const [result] = await db.execute(query, [
+        feature.name,
+                    feature.contact,
+                    feature.address,
+                    feature.reference,
+                    feature.date,
+                    feature.description,
+                    feature.follow_up_date,
+                    feature.note,
+                    feature.source,
+                    feature.email,
+                    feature.assigned,
+                    feature.class_id,
+                    feature.no_of_child,
+                    feature.status,
+                    feature.created_by
+      ]);
+      return result.insertId; // Return the ID of the inserted row
+    } catch (error) {
+      console.error('Error while inserting into enquiry table:', error.message);
+      throw error;
+    }
+  };
+  
+  export const updateAdmissionEnquiry = async (enquiry_id, feature) => {
+    const query = `
+      UPDATE enquiry
+      SET
+        name = ?,
+        contact = ?,
+        address = ?,
+        reference = ?,
+        date = ?,
+        description = ?,
+        follow_up_date = ?,
+        note = ?,
+        source = ?,
+        email = ?,
+        assigned = ?,
+        class_id = ?,
+        no_of_child = ?,
+        status = ?,
+        created_by = ?
+      WHERE enquiry_id = ?
+    `;
+  
+    try {
+      const [result] = await db.execute(query, [
+        feature.name,
+        feature.contact,
+        feature.address,
+        feature.reference,
+        feature.date,
+        feature.description,
+        feature.follow_up_date,
+        feature.note,
+        feature.source,
+        feature.email,
+        feature.assigned,
+        feature.class_id,
+        feature.no_of_child,
+        feature.status,
+        feature.created_by,
+        enquiry_id, // Ensure this is the unique identifier for the record
+      ]);
+  
+      if (result.affectedRows === 0) {
+        throw new Error('No records updated. Please check the enquiry_id.');
+      }
+  
+      return result.affectedRows; // Return the number of affected rows
+    } catch (error) {
+      console.error('Error while updating enquiry table:', error.message);
+      throw error;
+    }
+  };
+  

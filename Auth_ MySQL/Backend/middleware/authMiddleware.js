@@ -39,15 +39,19 @@ export const verifyToken = (req, res, next) => {
 
 
 export const authenticateUser = async (req, res, next) => {
-  const token = req.header('Authorization');
+  const token = req.header('Authorization')?.replace('Bearer ', '');
   if (!token) {
     return res.status(401).json({ error: 'Access denied. No token provided.' });
   }
 
   try {
+    console.log("token")
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(decoded)
     req.user = decoded;
+    
     const user = await getUserByEmail(decoded.email);
+    console.log(user)
     if (!user) {
       return res.status(401).json({ error: 'User not found.' });
     }
@@ -55,5 +59,20 @@ export const authenticateUser = async (req, res, next) => {
     next();
   } catch (error) {
     res.status(400).json({ error: 'Invalid token.' });
+  }
+};
+export const authenticate = (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', ''); // Get the token from the Authorization header
+  if (!token) {
+    return res.status(401).json({ error: 'Authentication token is missing' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); 
+    req.user = decoded; 
+    console.log(req.user)
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: 'Invalid or expired token' });
   }
 };
