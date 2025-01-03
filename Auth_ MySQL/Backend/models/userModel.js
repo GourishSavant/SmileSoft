@@ -37,6 +37,7 @@ export const createRole = async (name, is_active, is_system, is_admin) => {
 
 export const getRoleById = async (role_id) => {
   try {
+    console.log("name")
     const [rows] = await db.execute('SELECT * FROM roles WHERE role_id = ?', [role_id]);
     return rows.length > 0 ? rows[0] : null; // Return the first result or null if not found
   } catch (error) {
@@ -103,19 +104,19 @@ export const craeteStudent = async () => {
 // };
 
 // Fetch permissions by role
-export const getPermissionsByRoleModel = async (role_id) => {
-  try {
-    const [rows] = await db.execute(
-      'SELECT * FROM roles_permissions WHERE role_id = 1', 
-      [role_id]
-    );
-    console.log('Number of rows:', rows.length); 
-    return rows;
-  } catch (error) {
-    console.error('Error in database query:', error);
-    throw new Error('Database query failed');
-  }
-};
+// export const getPermissionsByRoleModel = async (role_id) => {
+//   try {
+//     const [rows] = await db.execute(
+//       'SELECT * FROM roles_permissions WHERE role_id = 1', 
+//       [role_id]
+//     );
+//     console.log('Number of rows:', rows.length); 
+//     return rows;
+//   } catch (error) {
+//     console.error('Error in database query:', error);
+//     throw new Error('Database query failed');
+//   }
+// };
 export const getAllPermissionsModel = async () => {
   try {
     const [rows] = await db.execute('SELECT * FROM roles_permissions');
@@ -352,7 +353,19 @@ export const bulkUpdatePermissionsForRole = async (role_id, permissions) => {
 export const getPermissions = async () => {
   console.log("entered in SQL ")
   const query = `
-  SELECT * FROM roles_permissions`;
+  SELECT 
+    roles.role_id,
+    roles.name AS role_name,
+    permission_category.name AS permission_name,
+    roles_permissions.permission_category_id,
+    roles_permissions.can_view,
+    roles_permissions.can_add,
+    roles_permissions.can_edit,
+    roles_permissions.can_delete
+FROM roles_permissions
+RIGHT JOIN roles ON roles.role_id = roles_permissions.role_id
+LEFT JOIN permission_category ON roles_permissions.permission_category_id = permission_category.permission_category_id;
+`;
   //  SELECT 
   //   *
   //   FROM roles r
@@ -367,14 +380,12 @@ export const getPermissions = async () => {
 export const getPermissionById = async (role_id) => {
   console.log("entered in SQL ")
   const query = `
+
   SELECT * FROM roles_permissions where role_id=?`;
-  //  SELECT 
-  //   *
-  //   FROM roles r
-  //   right JOIN roles_permissions rp ON r.role_id = rp.role_id
-  //   right JOIN permission_category pc ON pc.permission_category_id = rp.permission_category_id
-  //   ORDER BY r.role_id;
+  // //   SELECT FROM roles r
+  // //   right JOIN roles_permissions rp ON r.role_id = rp.role_id
   
+    
 
   const [results] = await db.execute(query,[role_id]);
   return results;
@@ -503,3 +514,43 @@ export const checkCreatePermissionForRole = async (role_id, permission_category_
     }
   };
   
+
+  export const checkRoleCreatePermission = async (role_id) => {
+
+    const query = `
+      SELECT * FROM roles_permissions
+      WHERE role_id = ? AND permission_category_id = 149 AND can_add = 1
+    `;
+    const [result] = await db.execute(query, [role_id]);
+    return result.length > 0;
+  };
+
+  export const checkRoleEditPermission = async (role_id) => {
+
+    const query = `
+      SELECT * FROM roles_permissions 
+      WHERE role_id = ? AND permission_category_id = 149  AND can_edit = 1
+    `;
+    const [result] = await db.execute(query, [role_id]);
+    return result.length > 0;
+  };
+
+  export const checkRoleDeletePermission = async (role_id) => {
+
+    const query = `
+      SELECT * FROM roles_permissions 
+      WHERE role_id = ?  AND permission_category_id = 149  AND can_delete = 1
+    `;
+    const [result] = await db.execute(query, [role_id]);
+    return result.length > 0;
+  };
+
+  export const checkRoleViewPermission = async (role_id) => {
+
+    const query = `
+      SELECT * FROM roles_permissions 
+      WHERE role_id = ?  AND permission_category_id = 149  AND can_view = 1
+    `;
+    const [result] = await db.execute(query, [role_id]);
+    return result.length > 0;
+  };

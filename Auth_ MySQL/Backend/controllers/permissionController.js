@@ -1,16 +1,16 @@
 
 import * as UserModel from '../models/userModel.js';
 
-export const getPermissionsByRole = async (req, res) => {
-  // const { role_id } = req.params;
-  try {
-    console.log("Fetching permissions...");
-    const permissions = await UserModel.getPermissionsByRoleModel(1);
-    res.status(200).json(permissions);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch permissions' });
-  }
-};
+// export const getPermissionsByRole = async (req, res) => {
+//   // const { role_id } = req.params;
+//   try {
+//     console.log("Fetching permissions...");
+//     const permissions = await UserModel.getPermissionsByRoleModel(1);
+//     res.status(200).json(permissions);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to fetch permissions' });
+//   }
+// };
 
 // export const getAllPermissions = async (req, res) => {
 //   try {
@@ -36,10 +36,30 @@ export const getAllPermissions = async (req, res) => {
       });
     }
 
+    
+    // Group permissions by role_name
+    const groupedPermissions = {};
+    permissions.forEach(permission => {
+      const { role_name } = permission;
+
+      if (!groupedPermissions[role_name]) {
+        groupedPermissions[role_name] = [];
+      }
+
+      groupedPermissions[role_name].push({
+        permission_name: permission.permission_name,
+        permission_category_id: permission.permission_category_id,
+        can_view: permission.can_view,
+        can_add: permission.can_add,
+        can_edit: permission.can_edit,
+        can_delete: permission.can_delete,
+      });
+    });
+
     res.status(200).json({ 
       success: true,
       message: 'Permissions retrieved successfully',
-      data: permissions 
+      data: groupedPermissions 
     });
   } catch (error) {
     console.error('Error fetching permissions:', error.message);
@@ -64,10 +84,33 @@ export const getAllPermissionsById = async (req, res) => {
       });
     }
 
+    const username = await UserModel.getRoleById(role_id);
+    console.log("User's Role:", username);
+ 
+    // Ensure username and username.name are available
+    if (!username || !username.name) {
+      return res.status(400).json({
+        success: false,
+        message: 'Role name not found for the user'
+      });
+    }
+ 
+    // Group permissions by role_name
+    const groupedPermissions = {};
+ 
+    // Initialize the array for the role if not already initialized
+    if (!groupedPermissions[username.name]) {
+      groupedPermissions[username.name] = []; // Initialize an empty array
+    }
+ 
+    // Add permissions to the array for this role
+    groupedPermissions[username.name].push(...permissions);
+ 
+    // Respond with the grouped permissions
     res.status(200).json({ 
       success: true,
       message: 'Permissions retrieved successfully',
-      data: permissions 
+      data: groupedPermissions // Send the grouped permissions
     });
   } catch (error) {
     console.error('Error fetching permissions:', error.message);
@@ -83,7 +126,6 @@ export const getStaffPermissions = async (req, res) => {
     console.log("get all")
     // Fetch all permissions grouped by role
     const permissions = await UserModel.getPermissionById(req.user.role_id); // Assume this fetches from the DB
-
     if (!permissions || permissions.length === 0) {
       return res.status(404).json({ 
         success: false, 
@@ -91,12 +133,37 @@ export const getStaffPermissions = async (req, res) => {
       });
     }
 
-    res.status(200).json({ 
-      success: true,
-      message: 'Permissions retrieved successfully',
-      data: permissions 
-    });
-  } catch (error) {
+    console.log(permissions.role_id);
+   // Fetch the username (or role name)
+   const username = await UserModel.getRoleById(req.user.role_id);
+   console.log("User's Role:", username);
+
+   // Ensure username and username.name are available
+   if (!username || !username.name) {
+     return res.status(400).json({
+       success: false,
+       message: 'Role name not found for the user'
+     });
+   }
+
+   // Group permissions by role_name
+   const groupedPermissions = {};
+
+   // Initialize the array for the role if not already initialized
+   if (!groupedPermissions[username.name]) {
+     groupedPermissions[username.name] = []; // Initialize an empty array
+   }
+
+   // Add permissions to the array for this role
+   groupedPermissions[username.name].push(...permissions);
+
+   // Respond with the grouped permissions
+   res.status(200).json({ 
+     success: true,
+     message: 'Permissions retrieved successfully',
+     data: groupedPermissions // Send the grouped permissions
+   });
+ } catch (error) {
     console.error('Error fetching permissions:', error.message);
     res.status(500).json({ 
       success: false, 

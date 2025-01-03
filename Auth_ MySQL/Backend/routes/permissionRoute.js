@@ -33,7 +33,7 @@
 // export default router;
 import express from 'express';
 import { authenticateUser } from '../middleware/authMiddleware.js';
-import { authorize,authorizeStaff } from '../middleware/authRoleMiddleware.js';
+import { authorize,authorizeAdmin } from '../middleware/authRoleMiddleware.js';
 import {   getAllPermissions,getAllPermissionsById ,getStaffPermissions} from '../controllers/permissionController.js';
 
 const router = express.Router();
@@ -111,7 +111,7 @@ const router = express.Router();
 router.get(
   '/permission/staff',  // get by role with token 
   authenticateUser,
-  authorizeStaff([1, 2, 3, 4, 5]), 
+  authorize(), 
   getStaffPermissions         // Controller to fetch all permissions
 );
 
@@ -172,7 +172,7 @@ router.get(
 router.get(
   '/permission',     // fectching all records permission 
   authenticateUser,
-  authorize([1]),
+  authorizeAdmin(),
   getAllPermissions          // Controller to fetch all permissions
 );
 // router.put('/roles/:role_id/permissions', bulkUpdatePermissionsForRoleById);
@@ -250,7 +250,7 @@ router.get(
 router.get(
   '/permission/:role_id',     //fetching all records by id 
   authenticateUser,
-  authorize([1]),
+  authorizeAdmin(),
   getAllPermissionsById          // Controller to fetch all permissions
 );
 

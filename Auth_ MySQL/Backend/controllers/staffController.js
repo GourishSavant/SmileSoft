@@ -572,7 +572,7 @@ export const createDesignation = async (req, res) => {
         }
       }
       // Fetch role ID, designation ID, and department ID
-      const role_id = await StaffModel.getRoleIdByName(role);
+      const role_id = await UserModel.getRoleIdByName(role);
       if (!role_id) {
         return res.status(400).json({ error: 'Invalid role name provided.' });
       }
@@ -671,21 +671,78 @@ export const createDesignation = async (req, res) => {
     }
   }
   //-------------------------------------------------------------------------------------------------------------------------
-  //Staff Login
+//   // Staff Login
+// export const staffLogin = async (req, res) => {
+//   const { email, password } = req.body;
+//   // Validate Input
+//   if (!email || !password) {
+//     return res.status(400).json({ error: 'Email and password are required' });
+//   }
+//   try {
+//     // Fetch staff details by email
+//     const staff = await StaffModel.getStaffByEmail(email);
+//     console.log(staff)
+//     if (!staff) {
+//       return res.status(404).json({ error: 'Staff not found' });
+//     }
+//     // Validate password
+//     const isPasswordValid = await bcrypt.compare(password, staff.password);
+//     console.log(isPasswordValid, staff.password)
+//     if (!isPasswordValid) {
+//       return res.status(401).json({ error: 'Invalid password' });
+//     }
+//     // Generate Access and Refresh Tokens
+//     const accessToken = jwt.sign(
+//       { staff_id: staff.staff_id, role_id: staff.role_id ,email:staff.email},
+//       jwtSecret,
+//       { expiresIn: '15m' }
+//     );
+//     const refreshToken = jwt.sign(
+//       { staff_id: staff.staff_id, role_id: staff.role_id },
+//       jwtSecret,
+//       { expiresIn: '7d' }
+//     );
+//     // Set Refresh Token in Cookie
+//     res.cookie('refreshToken', refreshToken, {
+//       httpOnly: true,
+//       secure: process.env.NODE_ENV === 'production',
+//       sameSite: 'strict',
+//       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+//     });
+//     // Return response
+//     res.status(200).json({
+//       message: 'Login successful',
+//       accessToken,
+//       staff: {
+//         staff_id: staff.staff_id,
+//         email: staff.email,
+//         role_id: staff.role_id,
+//         first_name: staff.first_name,
+//         last_name: staff.last_name,
+//       },
+//     });
+//   } catch (error) {
+//     console.error('Login Error:', error.message);
+//     res.status(500).json({ error: 'Login failed', details: error.message });
+//   }
+// };
+// -------------------------------------------
 export const staffLogin = async (req, res) => {
   const { email, password } = req.body;
+
   // Validate Input
   if (!email || !password) {
     return res.status(400).json({ error: 'Email and password are required' });
   }
+
   try {
     // Fetch staff details by email
-    const staff = await StaffModel.getStaffByEmail(email);
-    console.log(staff)
+    const staff = await UserModel.getStaffByEmail(email);
+
     if (!staff) {
       return res.status(404).json({ error: 'Staff not found' });
     }
-    // Validate password
+
     const isPasswordValid = await bcrypt.compare(password, staff.password);
     console.log(isPasswordValid, staff.password)
     if (!isPasswordValid) {
@@ -693,15 +750,17 @@ export const staffLogin = async (req, res) => {
     }
     // Generate Access and Refresh Tokens
     const accessToken = jwt.sign(
-      { staff_id: staff.staff_id, role_id: staff.role_id ,email:staff.email},
+      { staff_id: staff.staff_id, role_id: staff.role_id,email:staff.email },
       jwtSecret,
       { expiresIn: '15m' }
     );
+
     const refreshToken = jwt.sign(
       { staff_id: staff.staff_id, role_id: staff.role_id },
       jwtSecret,
       { expiresIn: '7d' }
     );
+
     // Set Refresh Token in Cookie
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
@@ -709,6 +768,7 @@ export const staffLogin = async (req, res) => {
       sameSite: 'strict',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
+
     // Return response
     res.status(200).json({
       message: 'Login successful',

@@ -37,27 +37,39 @@ import * as UserModel from '../models/userModel.js';
 
 export const createRole = async (req, res) => {
   try {
-    const { error, value } = roleSchema.validate(req.body);
-    if (error) {
-      return res.status(400).json({ success: false, message: error.details[0].message });
-    }
-
-    const { name, is_active, is_system, is_admin } = value;
+    
+    const { name, is_active, is_system, is_admin } = req.body;
 
     // if (['super_admin'].includes(name.toLowerCase())) {
     //   return res.status(403).json({ error: 'Cannot create a protected role' });
     // }
 
+    // ✅ Basic Validation
+    if (!name || typeof name !== 'string' || name.trim().length < 3) {
+      return res.status(400).json({ success: false, message: 'Name must be a string with at least 3 characters' });
+    }
+    if (typeof is_active !== 'boolean') {
+      return res.status(400).json({ success: false, message: 'is_active must be a boolean value' });
+    }
+    if (typeof is_system !== 'boolean') {
+      return res.status(400).json({ success: false, message: 'is_system must be a boolean value' });
+    }
+    if (typeof is_admin !== 'boolean') {
+      return res.status(400).json({ success: false, message: 'is_admin must be a boolean value' });
+    }
+
+    // ✅ Create Role in Database
     const role_id = await UserModel.createRole(name, is_active, is_system, is_admin);
 
+    // ✅ Success Response
     res.status(201).json({
       success: true,
       message: 'Role created successfully',
       role_id,
     });
   } catch (error) {
-    console.error('Role Creation Error:', error);
-    res.status(500).json({ success: false, message: 'Failed to create role' });
+    console.error('Role Creation Error:', error.message);
+    res.status(500).json({ success: false, message: 'Failed to create role', error: error.message });
   }
 };
 

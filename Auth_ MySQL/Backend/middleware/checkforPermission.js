@@ -65,7 +65,7 @@ export const checkAndTakeActionOnPermission =  async (req, res, next) => {
     }
   
     const { permission_category_id, can_create, can_edit, can_delete } = feature; // Destructure feature properties
-  
+  //  craete view 
     if (!permission_category_id) {
       return res.status(400).json({ error: 'Feature name is required.' });
     }
@@ -128,5 +128,136 @@ export const checkAndTakeActionOnPermission =  async (req, res, next) => {
       return res.status(500).json({ error: 'Internal server error occurred while checking permission category.' });
     }
   };
+
+  export const checkCreatePermissionForRole = async (req, res, next) => {
+    console.log(req.user.role_id);
+    const role_id = req.user.role_id; // Extract role_id from the user
+  
+    console.log("====================");
+  
+    try {
+        // Validate if the role exists
+        const roleExists = await UserModel.checkRoleExistsById(role_id);
+        if (!roleExists) {
+            return res.status(404).json({ error: 'Role not found with the given ID.' });
+        }
+  
+        // Check and validate permissions dynamically
+        const permissions = [];
+  
+        const canCreatePermission = await UserModel.checkRoleCreatePermission(role_id);
+        console.log("cancretepr")
+        console.log(canCreatePermission)
+        if (!canCreatePermission) {
+          return res.status(403).json({ error: `Role does not have create permission for '${role_id}'` });
+
+        }
+        permissions.push({ action: 'create', has_permission: canCreatePermission });
+  
+        // Proceed to the next middleware
+        next();
+    } catch (error) {
+        console.error('Error while checking permission:', error.message);
+        return res.status(500).json({ error: 'Internal server error occurred while checking permissions.' });
+    }
+  };
+
+
+export const checkEditPermissionForRole = async (req, res, next) => {
+  console.log(req.user.role_id);
+  const role_id = req.user.role_id; // Extract role_id from the user
+
+  console.log("====================");
+
+  try {
+      // Validate if the role exists
+      const roleExists = await UserModel.checkRoleExistsById(role_id);
+      if (!roleExists) {
+          return res.status(404).json({ error: 'Role not found with the given ID.' });
+      }
+
+      // Check and validate permissions dynamically
+      const permissions = [];
+
+          const canEditPermission = await UserModel.checkRoleEditPermission(role_id);
+          if (!canEditPermission) {
+              return res.status(403).json({ error: `Role does not have edit permission for '${role_id}'` });
+          }
+          permissions.push({ action: 'edit', has_permission: canEditPermission });
+
+      // Proceed to the next middleware
+      next();
+  } catch (error) {
+      console.error('Error while checking permission:', error.message);
+      return res.status(500).json({ error: 'Internal server error occurred while checking permissions.' });
+  }
+};
+
+export const checkDeletePermissionForRole = async (req, res, next) => {
+  console.log(req.user.role_id);
+  const role_id = req.user.role_id; // Extract role_id from the user
+
+  console.log("====================");
+
+  try {
+      // Validate if the role exists
+      const roleExists = await UserModel.checkRoleExistsById(role_id);
+      if (!roleExists) {
+          return res.status(404).json({ error: 'Role not found with the given ID.' });
+      }
+
+      // Check and validate permissions dynamically
+      const permissions = [];
+
+  
+          const canDeletePermission = await UserModel.checkRoleDeletePermission(role_id);
+          if ( !canDeletePermission) {
+              return res.status(403).json({ error: `Role does not have delete permission for '${role_id}'` });
+          }
+          permissions.push({ action: 'delete', has_permission: canDeletePermission });
+    
+
+      // Proceed to the next middleware
+      next();
+  } catch (error) {
+      console.error('Error while checking permission:', error.message);
+      return res.status(500).json({ error: 'Internal server error occurred while checking permissions.' });
+  }
+};
+
+
+
+export const checkviewPermissionForRole = async (req, res, next) => {
+  console.log(req.user.role_id);
+  const role_id = req.user.role_id; // Extract role_id from the user
+
+  console.log("====================");
+
+  try {
+      // Validate if the role exists
+      const roleExists = await UserModel.checkRoleExistsById(role_id);
+      if (!roleExists) {
+          return res.status(404).json({ error: 'Role not found with the given ID.' });
+      }
+
+      // Check and validate permissions dynamically
+      const permissions = [];
+
+  
+          const canViewPermission = await UserModel.checkRoleViewPermission(role_id);
+          if ( !canViewPermission) {
+              return res.status(403).json({ error: `Role does not have delete permission for '${role_id}'` });
+          }
+          permissions.push({ action: 'delete', has_permission: canViewPermission });
+    
+
+      // Proceed to the next middleware
+      next();
+  } catch (error) {
+      console.error('Error while checking permission:', error.message);
+      return res.status(500).json({ error: 'Internal server error occurred while checking permissions.' });
+  }
+};
+
   
   
