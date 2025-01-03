@@ -884,12 +884,14 @@ const router = express.Router();
 // Role Routes
 /**
  * @swagger
- * /roles/v1/create:
+ * /auth/roles:
  *   post:
  *     tags:
  *       - Roles API
  *     summary: Create a new role
  *     description: This endpoint allows administrators to create a new role with specific properties like name, active status, system role flag, and admin privileges.
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -905,7 +907,7 @@ const router = express.Router();
  *               name:
  *                 type: string
  *                 description: The name of the role.
- *                 example: "Manager"
+ *                 example: "manager"
  *               is_active:
  *                 type: boolean
  *                 description: Indicates if the role is active.
@@ -977,19 +979,28 @@ const router = express.Router();
  *                 error:
  *                   type: string
  *                   example: "Database connection failed"
+ *
+ * components:
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
+
 // Example usage
-// router.post('/roles', authenticateToken, authorizeRoles('admin', 'super_admin'), createRole);
 router.post('/roles',authenticate, authorizeAdmin(), createRole);        // Create Role
 // router.get('/roles', getRoles);
 /**
  * @swagger
- * /roles/v1/all:
+ * /auth/getRoles:
  *   get:
  *     tags:
  *       - Roles API
  *     summary: Retrieve all roles
  *     description: This endpoint allows administrators to retrieve all available roles in the system.
+ *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: Successfully retrieved all roles
@@ -1043,17 +1054,27 @@ router.post('/roles',authenticate, authorizeAdmin(), createRole);        // Crea
  *                 details:
  *                   type: string
  *                   example: "Database connection failed"
+ *
+ * components:
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
+
 router.get('/getRoles',authenticate, authorizeAdmin(), getAllRoles);
 
 /**
  * @swagger
- * /roles/v1/{role_id}:
+ * /auth/getRoleById/{role_id}:
  *   get:
  *     tags:
  *       - Roles API
  *     summary: Retrieve a role by its ID
  *     description: This endpoint allows you to fetch a specific role by its unique ID.
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: role_id
  *         in: path
@@ -1128,16 +1149,26 @@ router.get('/getRoles',authenticate, authorizeAdmin(), getAllRoles);
  *                 error:
  *                   type: string
  *                   example: "Database connection failed"
+ *
+ * components:
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
+
 router.get('/getRoleById/:role_id',authenticate, authorizeAdmin(), getRoleById);
 /**
  * @swagger
- * /roles/v1/{role_id}:
+ * /auth/editRole/{role_id}:
  *   put:
  *     tags:
  *       - Roles API
  *     summary: Update an existing role by ID
  *     description: This endpoint allows you to update an existing role's details like name, slug, status, and privileges.
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: role_id
  *         in: path
@@ -1145,7 +1176,7 @@ router.get('/getRoleById/:role_id',authenticate, authorizeAdmin(), getRoleById);
  *         description: The ID of the role to update
  *         schema:
  *           type: integer
- *           example: 1
+ *           example: 7
  *     requestBody:
  *       required: true
  *       content:
@@ -1153,14 +1184,14 @@ router.get('/getRoleById/:role_id',authenticate, authorizeAdmin(), getRoleById);
  *           schema:
  *             type: object
  *             properties:
- *               slug:
- *                 type: string
- *                 description: The slug for the role
- *                 example: "role-manager"
  *               name:
  *                 type: string
  *                 description: The name of the role
- *                 example: "Manager"
+ *                 example: "Inspector"
+ *               slug:
+ *                 type: string
+ *                 description: The slug for the role
+ *                 example: "inspector"
  *               is_active:
  *                 type: boolean
  *                 description: The active status of the role
@@ -1169,8 +1200,8 @@ router.get('/getRoleById/:role_id',authenticate, authorizeAdmin(), getRoleById);
  *               is_system:
  *                 type: boolean
  *                 description: Whether the role is a system role
- *                 default: true
- *                 example: true
+ *                 default: false
+ *                 example: false
  *               is_admin:
  *                 type: boolean
  *                 description: Whether the role has admin privileges
@@ -1233,17 +1264,28 @@ router.get('/getRoleById/:role_id',authenticate, authorizeAdmin(), getRoleById);
  *                 details:
  *                   type: string
  *                   example: "Database connection failed"
+ *
+ * components:
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
+
+
 router.put('/editRole/:role_id',authenticate,authorizeAdmin(), updateRole);
 // router.put('/roles/:role_id', authenticateToken, authorizeRoles('admin', 'super_admin'), updateRole);
 /**
  * @swagger
- * /roles/v1/{role_id}:
+ * /auth/roles/{role_id}:
  *   delete:
  *     tags:
  *       - Roles API
  *     summary: Delete a role by role ID
  *     description: This endpoint allows you to delete a role by its unique ID, preventing the deletion of critical roles like "admin", "super admin", etc.
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: role_id
  *         in: path
@@ -1309,7 +1351,15 @@ router.put('/editRole/:role_id',authenticate,authorizeAdmin(), updateRole);
  *                 details:
  *                   type: string
  *                   example: "Database error"
+ *
+ * components:
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
+
 router.delete('/roles/:role_id',authenticate, authorizeAdmin(), deleteRole);
 // router.delete('/roles/:role_id', authenticateToken, authorizeRoles('super_admin'), deleteRole);
 
@@ -1399,215 +1449,16 @@ router.delete('/roles/:role_id',authenticate, authorizeAdmin(), deleteRole);
 //  *                   example: "Database error"
 //  */
 router.get('/roles/name/:name',authenticate, authorizeAdmin(), getRoleByName);
-// /**
-//  * @swagger
-//  * /roles/permissions/{role_id}:
-//  *   get:
-//  *     tags:
-//  *       - Role_Permission API
-//  *     summary: Retrieve permissions for a specific role
-//  *     description: This endpoint allows you to fetch the permissions assigned to a specific role by its unique role ID.
-//  *     parameters:
-//  *       - name: role_id
-//  *         in: path
-//  *         required: true
-//  *         description: The unique identifier of the role to retrieve permissions for
-//  *         schema:
-//  *           type: integer
-//  *           example: 1
-//  *     responses:
-//  *       200:
-//  *         description: Successfully retrieved the permissions for the role
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: array
-//  *               items:
-//  *                 type: object
-//  *                 properties:
-//  *                   permission_id:
-//  *                     type: integer
-//  *                     description: The unique identifier of the permission
-//  *                     example: 101
-//  *                   permission_name:
-//  *                     type: string
-//  *                     description: The name of the permission
-//  *                     example: "read_only"
-//  *                   description:
-//  *                     type: string
-//  *                     description: A brief description of the permission
-//  *                     example: "Allows read-only access"
-//  *       404:
-//  *         description: Role not found or no permissions assigned
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 error:
-//  *                   type: string
-//  *                   example: "Permissions not found for the role"
-//  *       500:
-//  *         description: Internal Server Error - Unable to retrieve permissions
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 error:
-//  *                   type: string
-//  *                   example: "Failed to fetch permissions"
-//  *                 details:
-//  *                   type: string
-//  *                   example: "Database connection failed"
-//  *     security:
-//  *       - BearerAuth: []
-//  *
-//  * components:
-//  *   securitySchemes:
-//  *     BearerAuth:
-//  *       type: http
-//  *       scheme: bearer
-//  *       bearerFormat: JWT
-//  */
-// router.get('/permissions/:role_id',   authenticate, authorizeAdmin(), getPermissionsByRole);
-// /**
-//  * @swagger
-//  * /roles/v1/{name}/permissions:
-//  *   put:
-//  *     tags:
-//  *       - Role_Permission API
-//  *     summary: Bulk update permissions for a role by name
-//  *     description: This endpoint allows you to update multiple permissions for a specific role by its name.
-//  *     parameters:
-//  *       - name: name
-//  *         in: path
-//  *         required: true
-//  *         description: The name of the role to update permissions for
-//  *         schema:
-//  *           type: string
-//  *           example: "manager"
-//  *     requestBody:
-//  *       required: true
-//  *       content:
-//  *         application/json:
-//  *           schema:
-//  *             type: object
-//  *             required:
-//  *               - permissions
-//  *             properties:
-//  *               permissions:
-//  *                 type: array
-//  *                 description: An array of permission objects to update for the role
-//  *                 items:
-//  *                   type: object
-//  *                   required:
-//  *                     - name
-//  *                     - can_view
-//  *                     - can_add
-//  *                     - can_edit
-//  *                     - can_delete
-//  *                   properties:
-//  *                     name:
-//  *                       type: string
-//  *                       description: The name of the permission category
-//  *                       example: "view_dashboard"
-//  *                     can_view:
-//  *                       type: boolean
-//  *                       description: Whether the role can view the permission
-//  *                       example: true
-//  *                     can_add:
-//  *                       type: boolean
-//  *                       description: Whether the role can add the permission
-//  *                       example: true
-//  *                     can_edit:
-//  *                       type: boolean
-//  *                       description: Whether the role can edit the permission
-//  *                       example: false
-//  *                     can_delete:
-//  *                       type: boolean
-//  *                       description: Whether the role can delete the permission
-//  *                       example: false
-//  *     responses:
-//  *       200:
-//  *         description: Successfully updated the permissions for the role
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 message:
-//  *                   type: string
-//  *                   example: "Permissions updated successfully"
-//  *                 affectedRows:
-//  *                   type: integer
-//  *                   example: 3
-//  *                 name:
-//  *                   type: string
-//  *                   example: "manager"
-//  *                 permissions:
-//  *                   type: array
-//  *                   items:
-//  *                     type: object
-//  *                     properties:
-//  *                       permission_category_id:
-//  *                         type: integer
-//  *                         example: 2
-//  *                       can_view:
-//  *                         type: boolean
-//  *                         example: true
-//  *                       can_add:
-//  *                         type: boolean
-//  *                         example: true
-//  *                       can_edit:
-//  *                         type: boolean
-//  *                         example: false
-//  *                       can_delete:
-//  *                         type: boolean
-//  *                         example: false
-//  *       400:
-//  *         description: Bad Request - Invalid permissions data (expected an array of permission objects)
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 error:
-//  *                   type: string
-//  *                   example: "Invalid permissions data. Expected an array of permission objects."
-//  *       404:
-//  *         description: Not Found - Role or permission category not found
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 error:
-//  *                   type: string
-//  *                   example: "Role not found with the given name"
-//  *       500:
-//  *         description: Internal Server Error - Unable to update permissions
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 error:
-//  *                   type: string
-//  *                   example: "Failed to bulk update permissions for role"
-//  *                 details:
-//  *                   type: string
-//  *                   example: "Database connection failed"
-//  */
-// router.put('/roles/:name/permissions', bulkUpdatePermissionsForRoleByNames);
 /**
  * @swagger
- * /roles/v1/permissions/{role_id}:
+ * /auth/roles/permissions/{role_id}:
  *   put:
  *     tags:
  *       - Role_Permission API
  *     summary: Bulk update role permissions by role ID
  *     description: This endpoint allows bulk updating of permissions for a specific role using its role ID.
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: role_id
  *         in: path
@@ -1615,7 +1466,7 @@ router.get('/roles/name/:name',authenticate, authorizeAdmin(), getRoleByName);
  *         description: The unique ID of the role.
  *         schema:
  *           type: integer
- *           example: 5
+ *           example: 2
  *     requestBody:
  *       required: true
  *       content:
@@ -1631,19 +1482,24 @@ router.get('/roles/name/:name',authenticate, authorizeAdmin(), getRoleByName);
  *                   properties:
  *                     name:
  *                       type: string
- *                       example: "dashboard"
+ *                       description: The name of the permission (e.g., "Staff").
+ *                       example: "Staff"
  *                     can_view:
- *                       type: boolean
- *                       example: true
+ *                       type: integer
+ *                       description: Permission to view the resource (0 for false, 1 for true).
+ *                       example: 1
  *                     can_add:
- *                       type: boolean
- *                       example: false
+ *                       type: integer
+ *                       description: Permission to add new resources (0 for false, 1 for true).
+ *                       example: 0
  *                     can_edit:
- *                       type: boolean
- *                       example: true
+ *                       type: integer
+ *                       description: Permission to edit existing resources (0 for false, 1 for true).
+ *                       example: 1
  *                     can_delete:
- *                       type: boolean
- *                       example: false
+ *                       type: integer
+ *                       description: Permission to delete resources (0 for false, 1 for true).
+ *                       example: 1
  *     responses:
  *       200:
  *         description: Permissions updated successfully
@@ -1688,8 +1544,6 @@ router.get('/roles/name/:name',authenticate, authorizeAdmin(), getRoleByName);
  *                 error:
  *                   type: string
  *                   example: "Failed to bulk update permissions for role"
- *     security:
- *       - BearerAuth: []
  *
  * components:
  *   securitySchemes:
@@ -1698,6 +1552,7 @@ router.get('/roles/name/:name',authenticate, authorizeAdmin(), getRoleByName);
  *       scheme: bearer
  *       bearerFormat: JWT
  */
+
 // app.put('/roles/:name/permissions', authenticate, authorizeRole(['admin', 'superadmin']), bulkUpdatePermissionsForRoleByNames);
 // router.put('/roles/:role_id/permissions', bulkUpdatePermissionsForRoleById);
 router.put(

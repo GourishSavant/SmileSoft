@@ -430,7 +430,6 @@ router.get('/teacher-dashboard', authenticateToken, authorizeRole('teacher'), (r
  *                   example: "Forbidden. You do not have permission to request an OTP."
  */
 
-
 router.post('/request-otp', requestOtp); 
 /**
  * @swagger

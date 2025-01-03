@@ -409,7 +409,7 @@ export const createDesignation = async (req, res) => {
         res.status(500).json({error: 'Error fetching department', details: error.message});
     }
   }
-  //Staff
+
   export const createStaff = async (req, res) => {
     try {
         const { staff_id, role, designation, department, first_name, last_name,
@@ -552,24 +552,13 @@ export const createDesignation = async (req, res) => {
       console.log('Received Data:', req.body);
       console.log('staff_emp_id:', staff_emp_id);
       // Validate required fields
-      if (!role || !first_name || !email || !gender || !dob) {
-        return res.status(400).json({
-          error: 'Role, first_name, email, gender, and dob are required fields.'
-        });
+      if (!staff_id || !role || !first_name || !email || !gender || !dob || staff_id == null || role == null || first_name == null || email == null || gender == null || dob == null) {
+        return res.status(400).json({ error: 'staff_id, role, first_name, email, gender and date of birth fields are required and should not be null' });
       }
       // Check if original staff_id exists
       const existingStaff = await StaffModel.getStaffByStaffempId(staff_emp_id);
       if (!existingStaff) {
         return res.status(404).json({ error: 'Staff not found with the given staff_id.' });
-      }
-      // If `edited_staff_id` is provided, ensure it doesn't conflict with an existing record
-      if (staff_id && staff_id !== staff_emp_id) {
-        const conflictStaff = await StaffModel.getStaffById(staff_id);
-        if (conflictStaff) {
-          return res.status(400).json({
-            error: 'The edited staff_id is already assigned to another staff member.'
-          });
-        }
       }
       // Fetch role ID, designation ID, and department ID
       const role_id = await UserModel.getRoleIdByName(role);
@@ -727,22 +716,79 @@ export const createDesignation = async (req, res) => {
 //   }
 // };
 // -------------------------------------------
+// export const staffLogin = async (req, res) => {
+//   const { email, password } = req.body;
+
+//   // Validate Input
+//   if (!email || !password) {
+//     return res.status(400).json({ error: 'Email and password are required' });
+//   }
+
+//   try {
+//     // Fetch staff details by email
+//     const staff = await UserModel.getStaffByEmail(email);
+
+//     if (!staff) {
+//       return res.status(404).json({ error: 'Staff not found' });
+//     }
+
+//     const isPasswordValid = await bcrypt.compare(password, staff.password);
+//     console.log(isPasswordValid, staff.password)
+//     if (!isPasswordValid) {
+//       return res.status(401).json({ error: 'Invalid password' });
+//     }
+//     // Generate Access and Refresh Tokens
+//     const accessToken = jwt.sign(
+//       { staff_id: staff.staff_id, role_id: staff.role_id,email:staff.email },
+//       jwtSecret,
+//       { expiresIn: '15m' }
+//     );
+
+//     const refreshToken = jwt.sign(
+//       { staff_id: staff.staff_id, role_id: staff.role_id },
+//       jwtSecret,
+//       { expiresIn: '7d' }
+//     );
+
+//     // Set Refresh Token in Cookie
+//     res.cookie('refreshToken', refreshToken, {
+//       httpOnly: true,
+//       secure: process.env.NODE_ENV === 'production',
+//       sameSite: 'strict',
+//       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+//     });
+
+//     // Return response
+//     res.status(200).json({
+//       message: 'Login successful',
+//       accessToken,
+//       staff: {
+//         staff_id: staff.staff_id,
+//         email: staff.email,
+//         role_id: staff.role_id,
+//         first_name: staff.first_name,
+//         last_name: staff.last_name,
+//       },
+//     });
+//   } catch (error) {
+//     console.error('Login Error:', error.message);
+//     res.status(500).json({ error: 'Login failed', details: error.message });
+//   }
+// };
+
+
 export const staffLogin = async (req, res) => {
   const { email, password } = req.body;
-
   // Validate Input
   if (!email || !password) {
     return res.status(400).json({ error: 'Email and password are required' });
   }
-
   try {
     // Fetch staff details by email
     const staff = await UserModel.getStaffByEmail(email);
-
     if (!staff) {
       return res.status(404).json({ error: 'Staff not found' });
     }
-
     const isPasswordValid = await bcrypt.compare(password, staff.password);
     console.log(isPasswordValid, staff.password)
     if (!isPasswordValid) {
@@ -750,17 +796,15 @@ export const staffLogin = async (req, res) => {
     }
     // Generate Access and Refresh Tokens
     const accessToken = jwt.sign(
-      { staff_id: staff.staff_id, role_id: staff.role_id,email:staff.email },
+      { staff_id: staff.staff_id, role_id: staff.role_id, email:staff.email },
       jwtSecret,
       { expiresIn: '15m' }
     );
-
     const refreshToken = jwt.sign(
-      { staff_id: staff.staff_id, role_id: staff.role_id },
+      { staff_id: staff.staff_id, role_id: staff.role_id, email:staff.email },
       jwtSecret,
       { expiresIn: '7d' }
     );
-
     // Set Refresh Token in Cookie
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
@@ -768,11 +812,11 @@ export const staffLogin = async (req, res) => {
       sameSite: 'strict',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
-
     // Return response
     res.status(200).json({
       message: 'Login successful',
       accessToken,
+      refreshToken,
       staff: {
         staff_id: staff.staff_id,
         email: staff.email,
@@ -784,5 +828,55 @@ export const staffLogin = async (req, res) => {
   } catch (error) {
     console.error('Login Error:', error.message);
     res.status(500).json({ error: 'Login failed', details: error.message });
+  }
+};
+export const staffRefreshToken = async (req, res) => {
+  try {
+    // Log the request to debug cookies and body data
+    console.log('Cookies:', req.cookies);
+    console.log('Request Body:', req.body);
+    // Retrieve the refresh token from cookies or the request body
+    const refreshToken = req.cookies?.refreshToken || req.body?.refreshToken;
+    if (!refreshToken) {
+      return res.status(401).json({ error: 'No refresh token, authorization denied' });
+    }
+    // Verify the refresh token
+    jwt.verify(refreshToken, jwtSecret, async (err, decoded) => {
+      if (err) {
+        console.error('JWT Verify Error:', err);
+        return res.status(403).json({ error: 'Invalid or expired refresh token' });
+      }
+      // Log the decoded token
+      console.log('Decoded JWT:', decoded);
+      const { staff_id, role_id, email } = decoded;
+      if (!staff_id || !role_id || !email) {
+        return res.status(400).json({ error: 'Invalid token data' });
+      }
+      // Generate a new access token
+      const newAccessToken = jwt.sign(
+        { staff_id, role_id, email },
+        jwtSecret,
+        { expiresIn: '15m' }
+      );
+      return res.status(200).json({
+        message: 'Access token refreshed successfully',
+        accessToken: newAccessToken,
+      });
+    });
+  } catch (error) {
+    console.error('Error refreshing token:', error);
+    return res.status(500).json({ error: 'Error refreshing token' });
+  }
+};
+export const staffLogout = async (req, res) => {
+  try{
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: true
+    });
+    res.status(200).json({ message: 'Logout successful'});
+  }
+  catch (error) {
+    res.status(500).json({ error: 'Logout failed', details: error.message });
   }
 };

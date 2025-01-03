@@ -82,8 +82,6 @@ const router = express.Router();
  *                   example: "Server error, please try again later"
  */
 
-
-
 router.post('/register', registerUser);
 
 /**
@@ -142,8 +140,7 @@ router.post('/register', registerUser);
  *                   example: "Unauthorized - Incorrect email or password"
  */
 
- 
-router.post('/login', loginUser);
+// router.post('/login', loginUser);
 
 /**
  * @swagger

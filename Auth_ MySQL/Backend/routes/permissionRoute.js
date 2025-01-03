@@ -49,7 +49,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /permission/staff:
+ * /auth/perm/permission/staff:
  *   get:
  *     tags:
  *       - Permissions
@@ -118,7 +118,7 @@ router.get(
 
 /**
  * @swagger
- * /permission:
+ * /auth/perm/permission:
  *   get:
  *     tags:
  *       - Permissions
@@ -179,7 +179,7 @@ router.get(
 
 /**
  * @swagger
- * /permission/{role_id}:
+ * /auth/perm/permission/{role_id}:
  *   get:
  *     tags:
  *       - Permissions
