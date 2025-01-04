@@ -1,0 +1,103 @@
+[
+    {
+      "admissionNo": "A001",
+      "name": "John Doe",
+      "username": "johndoe",
+      "class": "Class 10",
+      "fatherName": "David Doe",
+      "mobileNumber": "9876543210",
+      "passOutSession": "2016-17",
+      "address": "123 Main St, Springfield"
+    },
+    {
+      "admissionNo": "A002",
+      "name": "Jane Smith",
+      "username": "janesmith",
+      "class": "Class 12",
+      "fatherName": "William Smith",
+      "mobileNumber": "9876543220",
+      "passOutSession": "2017-18",
+      "address": "456 Oak Rd, Springfield"
+    },
+    {
+      "admissionNo": "A003",
+      "name": "Mark Johnson",
+      "username": "markjohnson",
+      "class": "Class 9",
+      "fatherName": "George Johnson",
+      "mobileNumber": "9876543230",
+      "passOutSession": "2018-19",
+      "address": "789 Pine St, Springfield"
+    },
+    {
+      "admissionNo": "A004",
+      "name": "Emma White",
+      "username": "emmawhite",
+      "class": "Class 11",
+      "fatherName": "Edward White",
+      "mobileNumber": "9876543240",
+      "passOutSession": "2019-20",
+      "address": "321 Maple St, Springfield"
+    },
+    {
+      "admissionNo": "A005",
+      "name": "Lucas Brown",
+      "username": "lucasbrown",
+      "class": "Class 8",
+      "fatherName": "Michael Brown",
+      "mobileNumber": "9876543250",
+      "passOutSession": "2020-21",
+      "address": "654 Elm St, Springfield"
+    },
+    {
+      "admissionNo": "A006",
+      "name": "Olivia Davis",
+      "username": "oliviadavis",
+      "class": "Class 10",
+      "fatherName": "James Davis",
+      "mobileNumber": "9876543260",
+      "passOutSession": "2016-17",
+      "address": "123 Cedar St, Springfield"
+    },
+    {
+      "admissionNo": "A007",
+      "name": "Ethan Miller",
+      "username": "ethanmiller",
+      "class": "Class 12",
+      "fatherName": "David Miller",
+      "mobileNumber": "9876543270",
+      "passOutSession": "2017-18",
+      "address": "789 Birch St, Springfield"
+    },
+    {
+      "admissionNo": "A008",
+      "name": "Ava Wilson",
+      "username": "avawilson",
+      "class": "Class 9",
+      "fatherName": "Joseph Wilson",
+      "mobileNumber": "9876543280",
+      "passOutSession": "2018-19",
+      "address": "456 Maple St, Springfield"
+    },
+    {
+      "admissionNo": "A009",
+      "name": "Mason Martinez",
+      "username": "masonmartinez",
+      "class": "Class 11",
+      "fatherName": "Oscar Martinez",
+      "mobileNumber": "9876543290",
+      "passOutSession": "2019-20",
+      "address": "789 Oak St, Springfield"
+    },
+    {
+      "admissionNo": "A010",
+      "name": "Isabella Anderson",
+      "username": "isabellaanderson",
+      "class": "Class 8",
+      "fatherName": "Benjamin Anderson",
+      "mobileNumber": "9876543300",
+      "passOutSession": "2020-21",
+      "address": "123 Birch St, Springfield"
+    }
+  ]
+  

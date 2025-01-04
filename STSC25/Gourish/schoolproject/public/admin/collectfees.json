@@ -1,0 +1,32 @@
+[
+  {
+    "admissionNo": 12345,
+    "class": "10th",
+    "section": "A",
+    "name": "John Doe",
+    "fatherName": "Richard Doe",
+    "dateOfBirth": "2005-05-10",
+    "mobileNo": "9876543210",
+    "year": "2023",
+    "rollNo": 1,
+    "enrollNo": 45678,
+    "nationalId": "A123456789",
+    "localId": "B987654321",
+    "paymentId": "PAY12345"
+  },
+  {
+    "admissionNo": 12346,
+    "class": "9th",
+    "section": "B",
+    "name": "Jane Smith",
+    "fatherName": "Robert Smith",
+    "dateOfBirth": "2006-06-15",
+    "mobileNo": "9123456789",
+    "year": "2023",
+    "rollNo": 2,
+    "enrollNo": 45679,
+    "nationalId": "A987654321",
+    "localId": "B123456789",
+    "paymentId": "PAY12346"
+  }
+]

@@ -1,0 +1,108 @@
+[
+    {
+      "bookTitle": "Introduction to React",
+      "author": "John Doe",
+      "available": false
+    },
+    {
+      "bookTitle": "Advanced CSS",
+      "author": "Jane Smith",
+      "available": true
+    },
+    {
+      "bookTitle": "Data Structures",
+      "author": "Alice Cooper",
+      "available": false
+    },
+    {
+      "bookTitle": "React Native Guide",
+      "author": "Sam Adams",
+      "available": true
+    },
+    {
+      "bookTitle": "JavaScript Essentials",
+      "author": "Michael Johnson",
+      "available": false
+    },
+    {
+      "bookTitle": "Node.js for Beginners",
+      "author": "David Brown",
+      "available": false
+    },
+    {
+      "bookTitle": "CSS Flexbox",
+      "author": "Mia Davis",
+      "available": true
+    },
+    {
+      "bookTitle": "The Art of CSS",
+      "author": "John Green",
+      "available": true
+    },
+    {
+      "bookTitle": "Web Development Mastery",
+      "author": "Anna White",
+      "available": true
+    },
+    {
+      "bookTitle": "React Design Patterns",
+      "author": "David Wilson",
+      "available": true
+    },
+    {
+      "bookTitle": "Modern JavaScript",
+      "author": "Jessica Lee",
+      "available": true
+    },
+    {
+      "bookTitle": "Learn TypeScript",
+      "author": "Steven Taylor",
+      "available": false
+    },
+    {
+      "bookTitle": "Advanced React Patterns",
+      "author": "Rebecca Harris",
+      "available": true
+    },
+    {
+      "bookTitle": "UX/UI Principles",
+      "author": "Michael Scott",
+      "available": false
+    },
+    {
+      "bookTitle": "Data Science with Python",
+      "author": "Paul Young",
+      "available": true
+    },
+    {
+      "bookTitle": "Introduction to Algorithms",
+      "author": "Zoe Johnson",
+      "available": true
+    },
+    {
+      "bookTitle": "Design Thinking",
+      "author": "Emily Clark",
+      "available": true
+    },
+    {
+      "bookTitle": "JavaScript for Beginners",
+      "author": "Lucas Kim",
+      "available": false
+    },
+    {
+      "bookTitle": "Programming with Python",
+      "author": "Kate O'Connor",
+      "available": true
+    },
+    {
+      "bookTitle": "Full-Stack Web Development",
+      "author": "Samuel Allen",
+      "available": true
+    },
+    {
+      "bookTitle": "Building Scalable Apps",
+      "author": "Grace Robinson",
+      "available": false
+    }
+  ]
+  

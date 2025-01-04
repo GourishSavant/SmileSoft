@@ -1,0 +1,43 @@
+[
+    {
+      "id": 1,
+      "examGroup": "Midterm",
+      "exam": "Maths",
+      "session": "2023-2024",
+      "className": "10th",
+      "section": "A",
+      "template": "Template 1",
+      "fileName": "maths_midterm.pdf"
+    },
+    {
+      "id": 2,
+      "examGroup": "Midterm",
+      "exam": "Science",
+      "session": "2023-2024",
+      "className": "10th",
+      "section": "B",
+      "template": "Template 2",
+      "fileName": "science_midterm.pdf"
+    },
+    {
+      "id": 3,
+      "examGroup": "Final",
+      "exam": "Maths",
+      "session": "2023-2024",
+      "className": "10th",
+      "section": "A",
+      "template": "Template 3",
+      "fileName": "maths_final.pdf"
+    },
+    {
+      "id": 4,
+      "examGroup": "Final",
+      "exam": "Science",
+      "session": "2023-2024",
+      "className": "10th",
+      "section": "B",
+      "template": "Template 4",
+      "fileName": "science_final.pdf"
+    }
+  ]
+  

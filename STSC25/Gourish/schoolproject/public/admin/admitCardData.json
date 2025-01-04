@@ -1,0 +1,25 @@
+[
+    { "examGroup": "Mid-term", "exam": "Math Exam", "session": "2023-24", "class": "10", "section": "A", "template": "Template 1", "name": "John Doe", "rollNo": "1001" },
+    { "examGroup": "Mid-term", "exam": "Science Exam", "session": "2023-24", "class": "10", "section": "B", "template": "Template 2", "name": "Jane Smith", "rollNo": "1002" },
+    { "examGroup": "Final", "exam": "Math Exam", "session": "2023-24", "class": "12", "section": "A", "template": "Template 1", "name": "Alice Johnson", "rollNo": "2001" },
+    { "examGroup": "Final", "exam": "History Exam", "session": "2023-24", "class": "12", "section": "B", "template": "Template 2", "name": "Bob Brown", "rollNo": "2002" },
+    { "examGroup": "Mid-term", "exam": "Chemistry Exam", "session": "2023-24", "class": "11", "section": "A", "template": "Template 1", "name": "Charlie Davis", "rollNo": "1501" },
+    { "examGroup": "Mid-term", "exam": "Geography Exam", "session": "2023-24", "class": "11", "section": "B", "template": "Template 2", "name": "Debbie White", "rollNo": "1502" },
+    { "examGroup": "Final", "exam": "Physics Exam", "session": "2023-24", "class": "9", "section": "A", "template": "Template 1", "name": "Evan Clark", "rollNo": "1201" },
+    { "examGroup": "Final", "exam": "Biology Exam", "session": "2023-24", "class": "9", "section": "B", "template": "Template 2", "name": "Fay Harris", "rollNo": "1202" },
+    { "examGroup": "Mid-term", "exam": "Math Exam", "session": "2023-24", "class": "10", "section": "C", "template": "Template 1", "name": "George King", "rollNo": "1101" },
+    { "examGroup": "Final", "exam": "Physics Exam", "session": "2023-24", "class": "12", "section": "A", "template": "Template 2", "name": "Hannah Lee", "rollNo": "2101" },
+    { "examGroup": "Mid-term", "exam": "History Exam", "session": "2023-24", "class": "11", "section": "C", "template": "Template 1", "name": "Isaac Martin", "rollNo": "1301" },
+    { "examGroup": "Final", "exam": "Chemistry Exam", "session": "2023-24", "class": "10", "section": "A", "template": "Template 1", "name": "Jackie Moore", "rollNo": "1401" },
+    { "examGroup": "Mid-term", "exam": "Science Exam", "session": "2023-24", "class": "9", "section": "C", "template": "Template 2", "name": "Kevin Nelson", "rollNo": "1102" },
+    { "examGroup": "Final", "exam": "Biology Exam", "session": "2023-24", "class": "12", "section": "B", "template": "Template 1", "name": "Lily Parker", "rollNo": "2102" },
+    { "examGroup": "Mid-term", "exam": "Math Exam", "session": "2023-24", "class": "9", "section": "B", "template": "Template 1", "name": "Mason Quinn", "rollNo": "1003" },
+    { "examGroup": "Final", "exam": "Geography Exam", "session": "2023-24", "class": "11", "section": "A", "template": "Template 2", "name": "Nina Roberts", "rollNo": "1503" },
+    { "examGroup": "Mid-term", "exam": "Physics Exam", "session": "2023-24", "class": "10", "section": "C", "template": "Template 1", "name": "Oscar Scott", "rollNo": "1302" },
+    { "examGroup": "Final", "exam": "Chemistry Exam", "session": "2023-24", "class": "11", "section": "B", "template": "Template 2", "name": "Paula Taylor", "rollNo": "1601" },
+    { "examGroup": "Mid-term", "exam": "Biology Exam", "session": "2023-24", "class": "10", "section": "B", "template": "Template 1", "name": "Quinn Evans", "rollNo": "1203" },
+    { "examGroup": "Final", "exam": "Math Exam", "session": "2023-24", "class": "12", "section": "C", "template": "Template 1", "name": "Riley Walters", "rollNo": "2201" },
+    { "examGroup": "Mid-term", "exam": "History Exam", "session": "2023-24", "class": "9", "section": "A", "template": "Template 2", "name": "Sophie Williams", "rollNo": "1104" },
+    { "examGroup": "Final", "exam": "Geography Exam", "session": "2023-24", "class": "10", "section": "C", "template": "Template 1", "name": "Tommy Young", "rollNo": "1303" }
+  ]
+  

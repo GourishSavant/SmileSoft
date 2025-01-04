@@ -1,0 +1,29 @@
+[
+    {
+      "id": 1,
+      "referenceNo": "REF12345",
+      "name": "John Doe",
+      "fatherName": "Michael Doe",
+      "dateOfBirth": "2005-06-15",
+      "mobileNumber": "9876543210",
+      "status": "Pending",
+      "enrolled": "No",
+      "class": "10th",
+      "section": "A",
+      "year": "2023-2024"
+    },
+    {
+      "id": 2,
+      "referenceNo": "REF12346",
+      "name": "Jane Doe",
+      "fatherName": "Richard Doe",
+      "dateOfBirth": "2006-08-20",
+      "mobileNumber": "9876543222",
+      "status": "Approved",
+      "enrolled": "Yes",
+      "class": "9th",
+      "section": "B",
+      "year": "2023-2024"
+    }
+  ]
+  

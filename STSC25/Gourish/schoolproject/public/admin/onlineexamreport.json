@@ -1,0 +1,32 @@
+[
+  {
+    "admissionNo": "A123",
+    "studentName": "John Doe",
+    "class": "10",
+    "section": "A",
+    "exam": "Midterm",
+    "totalAttempt": 5,
+    "remainingAttempt": 3,
+    "examSubmitted": true
+  },
+  {
+    "admissionNo": "A124",
+    "studentName": "Jane Smith",
+    "class": "10",
+    "section": "B",
+    "exam": "Final",
+    "totalAttempt": 6,
+    "remainingAttempt": 2,
+    "examSubmitted": false
+  },
+  {
+    "admissionNo": "A125",
+    "studentName": "Mark Johnson",
+    "class": "11",
+    "section": "A",
+    "exam": "Midterm",
+    "totalAttempt": 4,
+    "remainingAttempt": 1,
+    "examSubmitted": true
+  }
+]

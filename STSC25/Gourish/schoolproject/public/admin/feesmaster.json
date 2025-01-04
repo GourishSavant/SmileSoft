@@ -1,0 +1,9 @@
+[
+    { "feesGroup": "Group A", "feesType": "Type 1", "feesCode": "A123", "amount": 500 },
+    { "feesGroup": "Group B", "feesType": "Type 2", "feesCode": "B234", "amount": 300 },
+    { "feesGroup": "Group A", "feesType": "Type 1", "feesCode": "A456", "amount": 450 },
+    { "feesGroup": "Group B", "feesType": "Type 2", "feesCode": "B567", "amount": 600 },
+    { "feesGroup": "Group A", "feesType": "Type 1", "feesCode": "A789", "amount": 700 },
+    { "feesGroup": "Group B", "feesType": "Type 2", "feesCode": "B890", "amount": 550 }
+  ]
+  

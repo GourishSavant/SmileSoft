@@ -1,0 +1,123 @@
+[
+    {
+      "id": 1,
+      "name": "Scholarship Discount",
+      "discountCode": "SCH01",
+      "discountType": "Percentage",
+      "percentage": 15,
+      "fixedAmount": null,
+      "description": "Scholarship for high-achieving students",
+      "class": "10th",
+      "section": "A",
+      "year": "2023-2024"
+    },
+    {
+      "id": 2,
+      "name": "Early Bird Discount",
+      "discountCode": "EARLY01",
+      "discountType": "Fixed Amount",
+      "percentage": null,
+      "fixedAmount": 100,
+      "description": "Discount for early payment",
+      "class": "9th",
+      "section": "B",
+      "year": "2023-2024"
+    },
+    {
+      "id": 3,
+      "name": "Sibling Discount",
+      "discountCode": "SIB01",
+      "discountType": "Percentage",
+      "percentage": 10,
+      "fixedAmount": null,
+      "description": "Discount for siblings enrolled in the same year",
+      "class": "8th",
+      "section": "C",
+      "year": "2024-2025"
+    },
+    {
+      "id": 4,
+      "name": "Sports Excellence Discount",
+      "discountCode": "SPORTS01",
+      "discountType": "Percentage",
+      "percentage": 20,
+      "fixedAmount": null,
+      "description": "Discount for students excelling in sports",
+      "class": "10th",
+      "section": "A",
+      "year": "2024-2025"
+    },
+    {
+      "id": 5,
+      "name": "Referral Discount",
+      "discountCode": "REF01",
+      "discountType": "Fixed Amount",
+      "percentage": null,
+      "fixedAmount": 50,
+      "description": "Referral discount for recommending a new student",
+      "class": "9th",
+      "section": "C",
+      "year": "2023-2024"
+    },
+    {
+      "id": 6,
+      "name": "Festive Discount",
+      "discountCode": "FEST01",
+      "discountType": "Percentage",
+      "percentage": 5,
+      "fixedAmount": null,
+      "description": "Discount for festive season",
+      "class": "8th",
+      "section": "A",
+      "year": "2023-2024"
+    },
+    {
+      "id": 7,
+      "name": "Merit-Based Discount",
+      "discountCode": "MERIT01",
+      "discountType": "Fixed Amount",
+      "percentage": null,
+      "fixedAmount": 200,
+      "description": "Merit-based discount for top scorers",
+      "class": "10th",
+      "section": "B",
+      "year": "2024-2025"
+    },
+    {
+      "id": 8,
+      "name": "Teacher's Child Discount",
+      "discountCode": "TEACH01",
+      "discountType": "Percentage",
+      "percentage": 30,
+      "fixedAmount": null,
+      "description": "Discount for children of teachers",
+      "class": "9th",
+      "section": "A",
+      "year": "2024-2025"
+    },
+    {
+      "id": 9,
+      "name": "Loyalty Discount",
+      "discountCode": "LOYAL01",
+      "discountType": "Percentage",
+      "percentage": 12,
+      "fixedAmount": null,
+      "description": "Loyalty discount for students enrolled for consecutive years",
+      "class": "8th",
+      "section": "B",
+      "year": "2023-2024"
+    },
+    {
+      "id": 10,
+      "name": "Annual Payment Discount",
+      "discountCode": "ANNUAL01",
+      "discountType": "Fixed Amount",
+      "percentage": null,
+      "fixedAmount": 150,
+      "description": "Discount for paying fees annually in advance",
+      "class": "10th",
+      "section": "C",
+      "year": "2024-2025"
+    }
+  ]
+  

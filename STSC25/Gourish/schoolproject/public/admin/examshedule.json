@@ -1,0 +1,80 @@
+{
+    "examGroups": [
+      {
+        "name": "Group A",
+        "exams": [
+          {
+            "name": "Maths",
+            "schedule": [
+              {
+                "subject": "Mathematics",
+                "dateFrom": "2024-12-10",
+                "startTime": "10:00 AM",
+                "duration": "2 hours",
+                "roomNo": "101",
+                "marksMax": "100",
+                "marksMin": "40"
+              },
+              {
+                "subject": "Algebra",
+                "dateFrom": "2024-12-11",
+                "startTime": "11:00 AM",
+                "duration": "1 hour",
+                "roomNo": "102",
+                "marksMax": "50",
+                "marksMin": "20"
+              }
+            ]
+          },
+          {
+            "name": "Physics",
+            "schedule": [
+              {
+                "subject": "Physics",
+                "dateFrom": "2024-12-12",
+                "startTime": "9:00 AM",
+                "duration": "3 hours",
+                "roomNo": "103",
+                "marksMax": "100",
+                "marksMin": "45"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Group B",
+        "exams": [
+          {
+            "name": "Chemistry",
+            "schedule": [
+              {
+                "subject": "Chemistry",
+                "dateFrom": "2024-12-13",
+                "startTime": "2:00 PM",
+                "duration": "2 hours",
+                "roomNo": "201",
+                "marksMax": "100",
+                "marksMin": "50"
+              }
+            ]
+          },
+          {
+            "name": "Biology",
+            "schedule": [
+              {
+                "subject": "Biology",
+                "dateFrom": "2024-12-14",
+                "startTime": "1:00 PM",
+                "duration": "2 hours",
+                "roomNo": "202",
+                "marksMax": "100",
+                "marksMin": "45"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
