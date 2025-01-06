@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "houseNo": "101",
+      "address": "123 Main Street",
+      "studentName": "John Doe",
+      "class": "10th",
+      "section": "A",
+      "year": "2023-2024"
+    },
+    {
+      "id": 2,
+      "houseNo": "102",
+      "address": "456 Elm Street",
+      "studentName": "Jane Smith",
+      "class": "9th",
+      "section": "B",
+      "year": "2022-2023"
+    }
+  ]
+  

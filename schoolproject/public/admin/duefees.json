@@ -1,0 +1,84 @@
+[
+    {
+      "id": 1,
+      "studentName": "John Doe",
+      "class": "10th",
+      "section": "A",
+      "feesGroup": "Admission Fees",
+      "dueAmount": 200,
+      "year": "2023-2024"
+    },
+    {
+      "id": 2,
+      "studentName": "Jane Smith",
+      "class": "9th",
+      "section": "B",
+      "feesGroup": "Exam Fees",
+      "dueAmount": 150,
+      "year": "2023-2024"
+    },
+    {
+      "id": 3,
+      "studentName": "Samuel Green",
+      "class": "8th",
+      "section": "C",
+      "feesGroup": "Book Fees",
+      "dueAmount": 300,
+      "year": "2022-2023"
+    },
+    {
+      "id": 4,
+      "studentName": "Alice Brown",
+      "class": "10th",
+      "section": "A",
+      "feesGroup": "Admission Fees",
+      "dueAmount": 250,
+      "year": "2022-2023"
+    },
+    {
+      "id": 5,
+      "studentName": "Michael White",
+      "class": "9th",
+      "section": "B",
+      "feesGroup": "Exam Fees",
+      "dueAmount": 180,
+      "year": "2023-2024"
+    },
+    {
+      "id": 6,
+      "studentName": "Emily Johnson",
+      "class": "8th",
+      "section": "A",
+      "feesGroup": "Book Fees",
+      "dueAmount": 220,
+      "year": "2022-2023"
+    },
+    {
+      "id": 7,
+      "studentName": "Oliver Brown",
+      "class": "10th",
+      "section": "B",
+      "feesGroup": "Admission Fees",
+      "dueAmount": 270,
+      "year": "2023-2024"
+    },
+    {
+      "id": 8,
+      "studentName": "Sophia Davis",
+      "class": "9th",
+      "section": "C",
+      "feesGroup": "Exam Fees",
+      "dueAmount": 160,
+      "year": "2023-2024"
+    },
+    {
+      "id": 9,
+      "studentName": "Liam Miller",
+      "class": "8th",
+      "section": "A",
+      "feesGroup": "Book Fees",
+      "dueAmount": 190,
+      "year": "2022-2023"
+    }
+  ]
+  

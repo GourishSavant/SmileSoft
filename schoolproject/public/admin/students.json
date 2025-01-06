@@ -1,0 +1,43 @@
+[
+    {
+      "admissionNo": "101",
+      "studentName": "Sampreet",
+      "class": "10th",
+      "year": "2023-2024",
+      "section": "A",
+      "mobileNumber": "1234567890"
+    },
+    {
+      "admissionNo": "102",
+      "studentName": "Chetan",
+      "class": "8th",
+      "year": "2023-2024",
+      "section": "B",
+      "mobileNumber": "9876543210"
+    },
+    {
+      "admissionNo": "103",
+      "studentName": "Nishanth",
+      "class": "7th",
+      "year": "2024-2025",
+      "section": "B",
+      "mobileNumber": "5678901234"
+    },
+    {
+        "admissionNo": "108",
+        "studentName": "Nandan",
+        "class": "7th",
+        "year": "2024-2025",
+        "section": "C",
+        "mobileNumber": "5678901234"
+      },
+    {
+      "admissionNo": "104",
+      "studentName": "Rahul",
+      "class": "10th",
+      "year": "2023-2024",
+      "section": "A",
+      "mobileNumber": "1122334455"
+    }
+  ]
+  

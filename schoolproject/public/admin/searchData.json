@@ -1,0 +1,19 @@
+[
+    {
+      "paymentId": "1",
+      "studentName": "John Doe",
+      "admissionNo": "A123",
+      "paymentDate": "2024-12-01",
+      "amount": 150,
+      "status": "Paid"
+    },
+    {
+      "paymentId": "2",
+      "studentName": "Jane Smith",
+      "admissionNo": "A124",
+      "paymentDate": "2024-12-05",
+      "amount": 200,
+      "status": "Pending"
+    }
+  ]
+  

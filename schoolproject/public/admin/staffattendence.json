@@ -1,0 +1,58 @@
+{
+    "students": [
+      {
+        "id": 1,
+        "name": "John Student",
+        "class": "10",
+        "section": "A",
+        "rollNumber": "S101",
+        "attendance": [
+          { "date": "2024-12-15", "status": "Present" },
+          { "date": "2024-12-16", "status": "Absent" }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Jane Student",
+        "class": "9",
+        "section": "B",
+        "rollNumber": "S102",
+        "attendance": [
+          { "date": "2024-12-15", "status": "Absent" },
+          { "date": "2024-12-16", "status": "Present" }
+        ]
+      }
+    ],
+    "teachers": [
+      {
+        "id": 1,
+        "name": "Mr. Smith",
+        "subject": "Math",
+        "attendance": [
+          { "date": "2024-12-15", "status": "Present" },
+          { "date": "2024-12-16", "status": "Absent" }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Mrs. Johnson",
+        "subject": "English",
+        "attendance": [
+          { "date": "2024-12-15", "status": "Absent" },
+          { "date": "2024-12-16", "status": "Present" }
+        ]
+      }
+    ],
+    "accountants": [
+      {
+        "id": 1,
+        "name": "John Accountant",
+        "department": "Finance",
+        "attendance": [
+          { "date": "2024-12-15", "status": "Present" },
+          { "date": "2024-12-16", "status": "Absent" }
+        ]
+      }
+    ]
+  }
+  

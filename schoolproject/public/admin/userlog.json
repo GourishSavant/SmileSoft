@@ -1,0 +1,83 @@
+[
+    {
+      "user": "John Doe",
+      "role": "Admin",
+      "class": "10",
+      "ipAddress": "192.168.1.1",
+      "loginDateTime": "2024-12-12 10:00 AM",
+      "userAgent": "Chrome"
+    },
+    {
+      "user": "Jane Smith",
+      "role": "Student",
+      "class": "10",
+      "ipAddress": "192.168.1.2",
+      "loginDateTime": "2024-12-12 10:30 AM",
+      "userAgent": "Firefox"
+    },
+    {
+      "user": "Mark Lee",
+      "role": "Teacher",
+      "class": null,
+      "ipAddress": "192.168.1.3",
+      "loginDateTime": "2024-12-12 09:45 AM",
+      "userAgent": "Safari"
+    },
+    {
+      "user": "Emma Johnson",
+      "role": "Parent",
+      "class": null,
+      "ipAddress": "192.168.1.4",
+      "loginDateTime": "2024-12-12 11:00 AM",
+      "userAgent": "Edge"
+    },
+    {
+      "user": "Alice Brown",
+      "role": "Student",
+      "class": "11",
+      "ipAddress": "192.168.1.5",
+      "loginDateTime": "2024-12-12 12:00 PM",
+      "userAgent": "Chrome"
+    },
+    {
+      "user": "Bob Williams",
+      "role": "Teacher",
+      "class": null,
+      "ipAddress": "192.168.1.6",
+      "loginDateTime": "2024-12-12 08:00 AM",
+      "userAgent": "Firefox"
+    },
+    {
+      "user": "Catherine Taylor",
+      "role": "Student",
+      "class": "11",
+      "ipAddress": "192.168.1.7",
+      "loginDateTime": "2024-12-12 01:30 PM",
+      "userAgent": "Safari"
+    },
+    {
+      "user": "David Miller",
+      "role": "Admin",
+      "class": null,
+      "ipAddress": "192.168.1.8",
+      "loginDateTime": "2024-12-12 03:00 PM",
+      "userAgent": "Edge"
+    },
+    {
+      "user": "Evelyn Anderson",
+      "role": "Parent",
+      "class": null,
+      "ipAddress": "192.168.1.9",
+      "loginDateTime": "2024-12-12 04:00 PM",
+      "userAgent": "Chrome"
+    },
+    {
+      "user": "Franklin Harris",
+      "role": "Teacher",
+      "class": null,
+      "ipAddress": "192.168.1.10",
+      "loginDateTime": "2024-12-12 06:00 PM",
+      "userAgent": "Firefox"
+    }
+  ]
+  

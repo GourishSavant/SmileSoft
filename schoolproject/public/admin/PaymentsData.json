@@ -1,0 +1,21 @@
+[
+    {
+      "requestId": 1,
+      "admissionNo": "A123",
+      "paymentDate": "2024-12-01",
+      "submitDate": "2024-12-03",
+      "amount": 150,
+      "status": "Paid",
+      "paymentId": "P001"
+    },
+    {
+      "requestId": 2,
+      "admissionNo": "A124",
+      "paymentDate": "2024-12-05",
+      "submitDate": "2024-12-06",
+      "amount": 200,
+      "status": "Pending",
+      "paymentId": "P002"
+    }
+  ]
+  

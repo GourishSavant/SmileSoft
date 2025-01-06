@@ -1,0 +1,98 @@
+[
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "className": "10",
+      "section": "A",
+      "libraryCardNo": "12345",
+      "phone": "123-456-7890",
+      "memberType": "Student",
+      "admissionNo": "001",
+      "transactions": [
+        {
+          "bookTitle": "Introduction to React",
+          "status": "Issued",
+          "date": "2024-12-05"
+        },
+        {
+          "bookTitle": "Advanced CSS",
+          "status": "Returned",
+          "date": "2024-12-01"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "John Smith",
+      "className": "11",
+      "section": "B",
+      "libraryCardNo": "12346",
+      "phone": "234-567-8901",
+      "memberType": "Student",
+      "admissionNo": "002",
+      "transactions": [
+        {
+          "bookTitle": "Data Structures",
+          "status": "Issued",
+          "date": "2024-12-04"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Mia Davis",
+      "className": "12",
+      "section": "C",
+      "libraryCardNo": "12347",
+      "phone": "345-678-9012",
+      "memberType": "Teacher",
+      "admissionNo": "003",
+      "transactions": [
+        {
+          "bookTitle": "React Native Guide",
+          "status": "Returned",
+          "date": "2024-12-03"
+        },
+        {
+          "bookTitle": "JavaScript Essentials",
+          "status": "Issued",
+          "date": "2024-12-06"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "David Lee",
+      "className": "9",
+      "section": "A",
+      "libraryCardNo": "12348",
+      "phone": "456-789-0123",
+      "memberType": "Student",
+      "admissionNo": "004",
+      "transactions": [
+        {
+          "bookTitle": "Node.js for Beginners",
+          "status": "Issued",
+          "date": "2024-12-05"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Sophia Brown",
+      "className": "10",
+      "section": "B",
+      "libraryCardNo": "12349",
+      "phone": "567-890-1234",
+      "memberType": "Teacher",
+      "admissionNo": "005",
+      "transactions": [
+        {
+          "bookTitle": "CSS Flexbox",
+          "status": "Returned",
+          "date": "2024-12-02"
+        }
+      ]
+    }
+  ]
+  

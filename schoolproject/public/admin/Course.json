@@ -1,0 +1,24 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "name": "Course 1",
+      "teacher": "Teacher 1",
+      "category": "Category 1",
+      "modules": 5,
+      "academicYear": "2023-2024"
+    },
+    {
+      "id": 2,
+      "name": "Course 2",
+      "teacher": "Teacher 2",
+      "category": "Category 2",
+      "modules": 6,
+      "academicYear": "2022-2023"
+    }
+  ],
+  "teachers": ["Teacher 1", "Teacher 2", "Teacher 3"],
+  "categories": ["Category 1", "Category 2", "Category 3"],
+  "modules": [1, 2, 3, 4, 5, 6],
+  "academicYears": ["2022-2023", "2023-2024", "2024-2025"]
+}

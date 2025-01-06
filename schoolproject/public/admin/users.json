@@ -1,0 +1,194 @@
+[
+
+    {
+      "staffId": "S006",
+      "name": "Rachel Adams",
+      "email": "rachel.adams@example.com",
+      "role": "staff",
+      "designation": "Math Teacher",
+      "department": "Mathematics",
+      "phone": "+1-234-567-895"
+    },
+    {
+      "staffId": "S007",
+      "name": "Michael Davis",
+      "email": "michael.davis@example.com",
+      "role": "staff",
+      "designation": "English Teacher",
+      "department": "English",
+      "phone": "+1-234-567-896"
+    },
+    {
+      "staffId": "S008",
+      "name": "Sarah Brown",
+      "email": "sarah.brown@example.com",
+      "role": "staff",
+      "designation": "History Teacher",
+      "department": "History",
+      "phone": "+1-234-567-897"
+    },
+    {
+      "staffId": "S009",
+      "name": "David Thomas",
+      "email": "david.thomas@example.com",
+      "role": "staff",
+      "designation": "Biology Teacher",
+      "department": "Science",
+      "phone": "+1-234-567-898"
+    },
+    {
+      "staffId": "S010",
+      "name": "Laura Miller",
+      "email": "laura.miller@example.com",
+      "role": "staff",
+      "designation": "Chemistry Teacher",
+      "department": "Science",
+      "phone": "+1-234-567-899"
+    },
+  
+
+    {
+      "admissionNo": "A011",
+      "name": "Emily Foster",
+      "username": "emily.foster",
+      "role": "student",
+      "class": "5th",
+      "fatherName": "Michael Foster",
+      "mobileNumber": "+1-345-678-911"
+    },
+    {
+      "admissionNo": "A012",
+      "name": "Jacob Carter",
+      "username": "jacob.carter",
+      "role": "student",
+      "class": "6th",
+      "fatherName": "David Carter",
+      "mobileNumber": "+1-345-678-912"
+    },
+    {
+      "admissionNo": "A013",
+      "name": "Ava Martinez",
+      "username": "ava.martinez",
+      "role": "student",
+      "class": "7th",
+      "fatherName": "Carlos Martinez",
+      "mobileNumber": "+1-345-678-913"
+    },
+    {
+      "admissionNo": "A014",
+      "name": "Mason Moore",
+      "username": "mason.moore",
+      "role": "student",
+      "class": "8th",
+      "fatherName": "Jason Moore",
+      "mobileNumber": "+1-345-678-914"
+    },
+    {
+      "admissionNo": "A015",
+      "name": "Sofia Clark",
+      "username": "sofia.clark",
+      "role": "student",
+      "class": "9th",
+      "fatherName": "James Clark",
+      "mobileNumber": "+1-345-678-915"
+    },
+    {
+      "admissionNo": "A016",
+      "name": "Jackson Harris",
+      "username": "jackson.harris",
+      "role": "student",
+      "class": "5th",
+      "fatherName": "William Harris",
+      "mobileNumber": "+1-345-678-916"
+    },
+    {
+      "admissionNo": "A017",
+      "name": "Liam Jackson",
+      "username": "liam.jackson",
+      "role": "student",
+      "class": "6th",
+      "fatherName": "Thomas Jackson",
+      "mobileNumber": "+1-345-678-917"
+    },
+    {
+      "admissionNo": "A018",
+      "name": "Zoe Lewis",
+      "username": "zoe.lewis",
+      "role": "student",
+      "class": "7th",
+      "fatherName": "Daniel Lewis",
+      "mobileNumber": "+1-345-678-918"
+    },
+    {
+      "admissionNo": "A019",
+      "name": "Lucas Walker",
+      "username": "lucas.walker",
+      "role": "student",
+      "class": "8th",
+      "fatherName": "Matthew Walker",
+      "mobileNumber": "+1-345-678-919"
+    },
+    {
+      "admissionNo": "A020",
+      "name": "Chloe Young",
+      "username": "chloe.young",
+      "role": "student",
+      "class": "9th",
+      "fatherName": "Samuel Young",
+      "mobileNumber": "+1-345-678-920"
+    },
+  
+
+    {
+      "guardianName": "Hannah Wilson",
+      "guardianPhone": "+1-456-789-017",
+      "username": "hannah.wilson"
+    },
+    {
+      "guardianName": "Michael Lewis",
+      "guardianPhone": "+1-456-789-018",
+      "username": "michael.lewis"
+    },
+    {
+      "guardianName": "Jessica White",
+      "guardianPhone": "+1-456-789-019",
+      "username": "jessica.white"
+    },
+    {
+      "guardianName": "Christopher Allen",
+      "guardianPhone": "+1-456-789-020",
+      "username": "christopher.allen"
+    },
+    {
+      "guardianName": "Mary Harris",
+      "guardianPhone": "+1-456-789-021",
+      "username": "mary.harris"
+    },
+    {
+      "guardianName": "Brian Turner",
+      "guardianPhone": "+1-456-789-022",
+      "username": "brian.turner"
+    },
+    {
+      "guardianName": "Olivia Roberts",
+      "guardianPhone": "+1-456-789-023",
+      "username": "olivia.roberts"
+    },
+    {
+      "guardianName": "John Walker",
+      "guardianPhone": "+1-456-789-024",
+      "username": "john.walker"
+    },
+    {
+      "guardianName": "Emily Scott",
+      "guardianPhone": "+1-456-789-025",
+      "username": "emily.scott"
+    },
+    {
+      "guardianName": "Samuel Adams",
+      "guardianPhone": "+1-456-789-026",
+      "username": "samuel.adams"
+    }
+    	
+  ]
+  

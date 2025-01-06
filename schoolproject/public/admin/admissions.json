@@ -1,0 +1,40 @@
+{
+    "admissions": [
+      {
+        "id": 1,
+        "name": "Dhanu",
+        "email": "dhanu@example.com",
+        "appliedDate": "2024-11-25",
+        "status": "Pending"
+      },
+      {
+        "id": 2,
+        "name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "appliedDate": "2024-11-24",
+        "status": "Pending"
+      },
+      {
+        "id": 3,
+        "name": "Akash",
+        "email": "akash@example.com",
+        "appliedDate": "2024-11-22",
+        "status": "Pending"
+      },
+      {
+        "id": 4,
+        "name": "Prajwal",
+        "email": "praju@example.com",
+        "appliedDate": "2024-11-20",
+        "status": "Pending"
+      },
+      {
+        "id": 5,
+        "name": "Nishanth",
+        "email": "nishu@example.com",
+        "appliedDate": "2024-11-18",
+        "status": "Pending"
+      }
+    ]
+  }
+  
