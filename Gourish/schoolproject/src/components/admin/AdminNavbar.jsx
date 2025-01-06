@@ -229,7 +229,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen, user }) => {
       navigate("/admin/login");
       console.log("logout successfull")
       
-      // localStorage.remove("accessToken", accessToken);
+      localStorage.removeItem("accessToken");
       // // Optionally store the refreshToken as well (for token refresh)
       // localStorage.clear("refreshToken", refreshToken);
 

@@ -146,11 +146,9 @@ const AdminLoginPage = () => {
       if (accessToken && refreshToken) {
         // Store the accessToken in localStorage
         localStorage.setItem("accessToken", accessToken);
-        // Optionally store the refreshToken as well (for token refresh)
-        localStorage.setItem("refreshToken", refreshToken);
   
         // Store staff info if needed
-        sessionStorage.setItem("staff", JSON.stringify(staff));
+        // sessionStorage.setItem("staff", JSON.stringify(staff));
   
         // Navigate based on the role
         switch (staff.role) {

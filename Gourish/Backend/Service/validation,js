@@ -1,0 +1,11 @@
+import Joi from 'joi';
+
+const roleSchema = Joi.object({
+  name: Joi.string().required(),
+  is_active: Joi.boolean().default(true),
+  is_system: Joi.boolean().default(false),
+  is_admin: Joi.boolean().default(false),
+});
+
+
+export default roleSchema;
